@@ -1,21 +1,20 @@
 import prisma from "@/app/prismaClient/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { getPrismaErrorResponse } from "@/app/api/utils";
+import { getPrismaErrorResponse } from "../../utils";
 
 export async function POST(req: NextRequest) {
-    const { name, description, price, category, isVegan, spicyLevel } =
-        await req.json();
+    const { name, description, date, location } = await req.json();
 
     try {
-        const dish = await prisma.dish.create({
-            data: { name, description, price, category, isVegan, spicyLevel },
+        const event = await prisma.event.create({
+            data: { name, description, date: new Date(date), location },
         });
 
         return NextResponse.json(
             {
                 success: true,
-                message: "Dish created successfully",
-                id: dish.id,
+                message: "Event created successfully",
+                id: event.id,
             },
             { status: 201 }
         );

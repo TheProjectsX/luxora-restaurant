@@ -3,19 +3,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPrismaErrorResponse } from "@/app/api/utils";
 
 export async function POST(req: NextRequest) {
-    const { name, description, price, category, isVegan, spicyLevel } =
-        await req.json();
+    const { name, message, rating } = await req.json();
 
     try {
-        const dish = await prisma.dish.create({
-            data: { name, description, price, category, isVegan, spicyLevel },
+        const testimonial = await prisma.testimonial.create({
+            data: { name, message, rating },
         });
 
         return NextResponse.json(
             {
                 success: true,
-                message: "Dish created successfully",
-                id: dish.id,
+                message: "Testimonial created successfully",
+                id: testimonial.id,
             },
             { status: 201 }
         );

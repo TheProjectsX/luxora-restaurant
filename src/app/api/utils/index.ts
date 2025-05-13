@@ -43,3 +43,15 @@ export const parseDate = (dateString: string) => {
     date.setHours(0, 0, 0, 0);
     return date;
 };
+
+export const filterDefinedFields = (input: Record<string, any>) => {
+    const result: Record<string, any> = {};
+
+    for (const key in input) {
+        if (input[key] !== undefined) {
+            result[key] = input[key];
+        }
+    }
+
+    return result;
+};
