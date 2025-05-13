@@ -1,1 +1,24 @@
 @import "tailwindcss";
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../../.flowbite-react/class-list.json";
+
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
+/* Custom max width for elements */
+.max-width {
+    max-width: 1200px;
+    margin-inline: auto;
+}
+
+/* Ubuntu font */
+.font-ubuntu {
+    font-family: "Ubuntu", sans-serif;
+}
+
+.font-ubuntu button {
+    font-family: "Ubuntu", sans-serif;
+}
+
+/* Handle Dark Mode manually */
+@custom-variant dark (&:where(.dark, .dark *));
