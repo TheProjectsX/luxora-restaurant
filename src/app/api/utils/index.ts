@@ -34,7 +34,7 @@ export const getPrismaErrorResponse = (
         return [{ success: false, error: "Database Error" }, { status: 500 }];
     }
 
-    return [{ success: false, error: "Unknown Error" }, { status: 500 }];
+    return [{ success: false, error: "Server Error" }, { status: 500 }];
 };
 
 export const parseDate = (dateString: string) => {
