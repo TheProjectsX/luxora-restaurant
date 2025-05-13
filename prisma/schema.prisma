@@ -1,0 +1,75 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+// Models
+model Reservation {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String
+  guests    Int
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Dish {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  category    String
+  isVegan     Boolean  @default(false)
+  spicyLevel  Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  message   String
+  rating    Int
+  createdAt DateTime @default(now())
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  date        DateTime
+  location    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model GalleryImage {
+  id        Int      @id @default(autoincrement())
+  title     String
+  imageUrl  String
+  category  String
+  createdAt DateTime @default(now())
+}
+
+// Test Model
+model TestModel {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
