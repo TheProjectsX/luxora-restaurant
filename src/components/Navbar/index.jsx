@@ -5,7 +5,6 @@ import {
     DropdownHeader,
     DropdownItem,
     Navbar,
-    NavbarBrand,
     NavbarCollapse,
     NavbarToggle,
 } from "flowbite-react";
@@ -14,7 +13,7 @@ import Link from "next/link";
 
 const NavbarComponent = () => {
     return (
-        <header className="shadow-md mb-5">
+        <header className="shadow-md mb-4">
             <Navbar className="max-width" fluid rounded>
                 <Link className="flex items-center" href="/">
                     <img
