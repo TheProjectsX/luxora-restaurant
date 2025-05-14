@@ -55,9 +55,9 @@ const NavbarComponent = () => {
                 <NavbarCollapse className="[&_.active]:text-blue-500 [&_ul]:space-x-4">
                     <NavLink href="/">Home</NavLink>
 
-                    <NavLink href="/about">About</NavLink>
+                    <NavLink href="/menu">Menu</NavLink>
 
-                    <NavLink href="/services">Services</NavLink>
+                    <NavLink href="/book">Book</NavLink>
 
                     <NavLink href="/pricing">Pricing</NavLink>
 
