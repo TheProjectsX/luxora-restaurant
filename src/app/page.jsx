@@ -6,6 +6,7 @@ import HeroBackground from "@/assets/images/hero-background.jpg";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { CTAButton } from "@/components/Buttons";
+import Heading from "@/components/Heading";
 
 const Home = () => {
     const dishes = [
@@ -50,9 +51,7 @@ const Home = () => {
 
             {/* Featured Dishes Slider */}
             <section className="">
-                <h2 className="text-2xl font-bold mb-6 pb-1 border-b-4 border-blue-500 w-fit ">
-                    Featured Dishes
-                </h2>
+                <Heading className="mb-6">Featured Dishes</Heading>
 
                 <Carousel
                     infiniteLoop
@@ -106,9 +105,7 @@ const Home = () => {
 
             {/* Google Map Section */}
             <section className="w-full aspect-[2/1]">
-                <h2 className="text-2xl font-bold mb-6 pb-1 border-b-4 border-blue-500 w-fit">
-                    Find Us on Google Map
-                </h2>
+                <Heading>Find Us on Google Map</Heading>
 
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5005.050661979085!2d90.39087053844055!3d23.73361171521127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8e90a449e4f%3A0xb7092a9c25197fa4!2sUniversity%20of%20Dhaka!5e0!3m2!1sen!2sbd!4v1747234595244!5m2!1sen!2sbd"

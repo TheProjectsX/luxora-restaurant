@@ -5,6 +5,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { PiPepperFill } from "react-icons/pi";
 import { LuVegan } from "react-icons/lu";
 import React from "react";
+import Ratings from "@/components/Ratings";
 
 const Menu = () => {
     const dishData = [
@@ -140,31 +141,22 @@ const Menu = () => {
                                     Spice Level:
                                 </p>
                                 <p>
-                                    {item.spicyLevel === "NONE" ? (
-                                        <span className="flex items-center gap-1">
+                                    <span className="flex items-center gap-1">
+                                        <Ratings
+                                            count={5}
+                                            rating={
+                                                item.spicyLevel === "NONE"
+                                                    ? 0
+                                                    : item.spicyLevel ===
+                                                      "MEDIUM"
+                                                    ? 3
+                                                    : 5
+                                            }
+                                            className="text-red-500"
+                                        >
                                             <PiPepperFill className="text-green-500" />
-                                            <PiPepperFill className="text-green-500" />
-                                            <PiPepperFill className="text-green-500" />
-                                            <PiPepperFill className="text-green-500" />
-                                            <PiPepperFill className="text-green-500" />
-                                        </span>
-                                    ) : item.spicyLevel === "MEDIUM" ? (
-                                        <span className="flex items-center gap-1">
-                                            <PiPepperFill className="text-red-500" />
-                                            <PiPepperFill className="text-red-500" />
-                                            <PiPepperFill className="text-red-500" />
-                                            <PiPepperFill className="text-green-500" />
-                                            <PiPepperFill className="text-green-500" />
-                                        </span>
-                                    ) : (
-                                        <span className="flex items-center gap-1">
-                                            <PiPepperFill className="text-red-500" />
-                                            <PiPepperFill className="text-red-500" />
-                                            <PiPepperFill className="text-red-500" />
-                                            <PiPepperFill className="text-red-500" />
-                                            <PiPepperFill className="text-red-500" />
-                                        </span>
-                                    )}
+                                        </Ratings>
+                                    </span>
                                 </p>
                             </div>
                         </div>

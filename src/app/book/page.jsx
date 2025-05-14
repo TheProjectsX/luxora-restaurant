@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import Heading from "@/components/Heading";
 const Book = () => {
     const [formValues, setFormValues] = useState({
         name: "",
@@ -25,10 +25,8 @@ const Book = () => {
     maxDate.setDate(31);
 
     return (
-        <div className="">
-            <h2 className="text-2xl font-bold pb-1 border-b-4 border-blue-500 w-fit mx-auto mb-8">
-                Book a Table
-            </h2>
+        <div>
+            <Heading className="mx-auto mb-8">Book a Table</Heading>
 
             <form
                 className="flex max-w-lg flex-col gap-4 mx-auto"
