@@ -36,7 +36,6 @@ const Book = () => {
                     <Label className="flex flex-col gap-2">
                         Your name
                         <TextInput
-                            id="name"
                             type="text"
                             placeholder="John Doe"
                             value={formValues.name}
@@ -54,7 +53,6 @@ const Book = () => {
                     <Label className="flex flex-col gap-2">
                         Your email
                         <TextInput
-                            id="email"
                             type="email"
                             placeholder="name@flowbite.com"
                             value={formValues.email}
@@ -72,7 +70,6 @@ const Book = () => {
                     <Label className="flex flex-col gap-2">
                         Your phone
                         <TextInput
-                            id="phone"
                             type="tel"
                             placeholder="123-456-7890"
                             value={formValues.phone}
@@ -90,7 +87,6 @@ const Book = () => {
                     <Label className="flex flex-col gap-2">
                         Number of guests
                         <TextInput
-                            id="guests"
                             type="number"
                             min="1"
                             placeholder="1"

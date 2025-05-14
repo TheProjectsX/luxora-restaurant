@@ -9,7 +9,7 @@ const Heading = ({
 }) => {
     return (
         <h2
-            className={`text-2xl font-bold mb-6 pb-1 border-b-4 border-blue-500 w-fit ${
+            className={`text-2xl font-bold mb-6 pb-1 border-b-4 border-blue-500 w-fit font-inter ${
                 className ?? ""
             }`}
         >
