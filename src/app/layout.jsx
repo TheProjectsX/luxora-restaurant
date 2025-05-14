@@ -7,7 +7,9 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={`font-ubuntu flex flex-col min-h-screen`}>
                 <NavbarComponent />
-                <main className="flex-1">{children}</main>
+                <main className="flex-1 w-full max-width py-2 mb-10">
+                    {children}
+                </main>
                 <FooterComponent />
             </body>
         </html>

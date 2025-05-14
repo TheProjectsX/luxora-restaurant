@@ -14,7 +14,7 @@ import Link from "next/link";
 
 const NavbarComponent = () => {
     return (
-        <header className="shadow-md mb-2">
+        <header className="shadow-md mb-5">
             <Navbar className="max-width" fluid rounded>
                 <Link className="flex items-center" href="/">
                     <img
