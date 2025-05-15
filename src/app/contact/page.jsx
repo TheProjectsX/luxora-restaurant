@@ -12,8 +12,29 @@ const Contact = () => {
         message: "",
     });
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch("/api/contact", {
+            method: "POST",
+            body: JSON.stringify(formValues),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            toast.success("Message sent successfully");
+            setFormValues({
+                name: "",
+                email: "",
+                message: "",
+            });
+        } else {
+            toast.error("Failed to send message");
+        }
+    };
     return (
-        <>
+        <div>
             <Heading className="mx-auto mb-6">Contact Us</Heading>
             <div className="flex flex-col md:flex-row items-start justify-around gap-8 md:gap-4 md:py-5 mb-8">
                 {/* Business Hours Section */}
@@ -72,7 +93,7 @@ const Contact = () => {
                 <section className="w-full md:w-auto md:flex-1/2">
                     <form
                         className="flex max-w-md flex-col gap-4 mx-auto"
-                        onSubmit={(e) => e.preventDefault()}
+                        onSubmit={handleSubmit}
                     >
                         <div className="mb-2">
                             <Label className="flex flex-col gap-2">
@@ -147,7 +168,7 @@ const Contact = () => {
                     referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
             </section>
-        </>
+        </div>
     );
 };
 

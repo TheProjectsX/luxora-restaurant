@@ -47,7 +47,9 @@ const Events = () => {
 
             {!eventsData && <LoadingPlaceholder />}
 
-            {eventsData && eventsData.length === 0 && <EmptyLabel />}
+            {eventsData && eventsData.length === 0 && (
+                <EmptyLabel>No events to show</EmptyLabel>
+            )}
 
             {eventsData && eventsData.length > 0 && (
                 <div className="relative overflow-x-auto scrollbar-thin shadow-md sm:rounded-lg mt-6">

@@ -49,7 +49,9 @@ const Menu = () => {
 
             {!menuData && <LoadingPlaceholder />}
 
-            {menuData && menuData.length === 0 && <EmptyLabel />}
+            {menuData && menuData.length === 0 && (
+                <EmptyLabel>No menu items to show</EmptyLabel>
+            )}
 
             {menuData && menuData.length > 0 && (
                 <div className="relative overflow-x-auto scrollbar-thin shadow-md sm:rounded-lg mt-6">
