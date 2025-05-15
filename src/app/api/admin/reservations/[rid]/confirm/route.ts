@@ -6,9 +6,9 @@ export async function PUT(
     req: NextRequest,
     { params }: { params: Promise<{ rid: string }> }
 ) {
-    const { rid } = await params;
-
     try {
+        const { rid } = await params;
+
         await prisma.reservation.update({
             where: { id: Number(rid) },
             data: { status: "CONFIRMED" },

@@ -4,9 +4,17 @@ import { SessionProvider } from "next-auth/react";
 import "./globals.css";
 import { Bounce, ToastContainer } from "react-toastify";
 
+export const metadata = {
+    title: "Luxo - Your Luxury Restaurant",
+    description: "Luxo - Your Luxury Restaurant",
+};
+
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
+            <head>
+                <link rel="icon" href="/logo.png" />
+            </head>
             <SessionProvider>
                 <body className={`font-ubuntu flex flex-col min-h-screen`}>
                     <ToastContainer

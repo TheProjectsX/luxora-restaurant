@@ -4,9 +4,9 @@ import prisma from "@/app/prismaClient/prisma";
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { rid: string } }
+    { params }: { params: Promise<{ rid: string }> }
 ) {
-    const { rid } = params;
+    const { rid } = await params;
 
     try {
         const reservation = await prisma.reservation.findUnique({
