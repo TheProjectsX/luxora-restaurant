@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StatCard from "./StatCard";
 import { TbMenu4, TbCalendar } from "react-icons/tb";
 import { HiArrowTrendingUp } from "react-icons/hi2";
@@ -47,15 +47,17 @@ const Dashboard = () => {
         </svg>
     );
 
-    const isSuccess = true;
-    const adminStats = {
-        success: true,
+    const [adminStats, setAdminStats] = useState(null);
 
-        total_reservations: 150,
-        today_reservations: 12,
-        week_reservations: 45,
-        total_menu_items: 25,
-    };
+    useEffect(() => {
+        const fetchAdminStats = async () => {
+            const response = await fetch("/api/admin/stats");
+            const data = await response.json();
+            setAdminStats(data);
+        };
+
+        fetchAdminStats();
+    }, []);
 
     return (
         <div>
@@ -66,7 +68,7 @@ const Dashboard = () => {
                     Icon={CiGrid42}
                     label="Total Reservations"
                     value={
-                        isSuccess
+                        adminStats
                             ? ShortNumber(adminStats.total_reservations)
                             : loader
                     }
@@ -75,7 +77,7 @@ const Dashboard = () => {
                     Icon={TbCalendar}
                     label="Today's Reservations"
                     value={
-                        isSuccess
+                        adminStats
                             ? ShortNumber(adminStats.today_reservations)
                             : loader
                     }
@@ -84,7 +86,7 @@ const Dashboard = () => {
                     Icon={HiArrowTrendingUp}
                     label="This Week's Reservations"
                     value={
-                        isSuccess
+                        adminStats
                             ? ShortNumber(adminStats.week_reservations)
                             : loader
                     }
@@ -93,8 +95,26 @@ const Dashboard = () => {
                     Icon={TbMenu4}
                     label="Total Menu Items"
                     value={
-                        isSuccess
+                        adminStats
                             ? ShortNumber(adminStats.total_menu_items)
+                            : loader
+                    }
+                />
+                <StatCard
+                    Icon={TbCalendar}
+                    label="Total Events"
+                    value={
+                        adminStats
+                            ? ShortNumber(adminStats.total_events)
+                            : loader
+                    }
+                />
+                <StatCard
+                    Icon={TbCalendar}
+                    label="Total Gallery Images"
+                    value={
+                        adminStats
+                            ? ShortNumber(adminStats.total_gallery_images)
                             : loader
                     }
                 />

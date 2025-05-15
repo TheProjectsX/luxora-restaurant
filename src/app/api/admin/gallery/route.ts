@@ -3,11 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPrismaErrorResponse } from "../../utils";
 
 export async function POST(req: NextRequest) {
-    const { title, imageUrl, category } = await req.json();
+    const { title, image, category } = await req.json();
 
     try {
         const galleryImage = await prisma.galleryImage.create({
-            data: { title, imageUrl, category },
+            data: { title, image, category },
         });
 
         return NextResponse.json({

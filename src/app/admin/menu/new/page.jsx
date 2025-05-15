@@ -10,6 +10,8 @@ import {
     ToggleSwitch,
 } from "flowbite-react";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const NewDish = () => {
     const [formValues, setFormValues] = useState({
@@ -21,12 +23,32 @@ const NewDish = () => {
         spicyLevel: 0,
     });
 
+    const router = useRouter();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch("/api/admin/menu", {
+            method: "POST",
+            body: JSON.stringify(formValues),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            toast.success("Dish added successfully");
+            router.push("/admin/menu");
+        } else {
+            toast.error("Failed to add dish");
+        }
+    };
+
     return (
         <div>
             <Heading className="mb-6">Add new Event</Heading>
 
             <form
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
                 className="space-y-6 max-w-lg max-[770px]:mx-auto"
             >
                 <div>

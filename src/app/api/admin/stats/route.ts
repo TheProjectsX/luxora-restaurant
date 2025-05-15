@@ -21,8 +21,8 @@ const getStatsResponse = async () => {
         todayReservations,
         weekReservations,
         totalMenuItems,
-        pendingReservations,
-        confirmedReservations,
+        totalEvents,
+        totalGalleryImages,
     ] = await Promise.all([
         // Total reservations
         prisma.reservation.count(),
@@ -52,31 +52,22 @@ const getStatsResponse = async () => {
         // Total menu items
         prisma.dish.count(),
 
-        // Pending reservations
-        prisma.reservation.count({
-            where: {
-                status: "PENDING",
-            },
-        }),
+        // Total events
+        prisma.event.count(),
 
-        // Confirmed reservations
-        prisma.reservation.count({
-            where: {
-                status: "CONFIRMED",
-            },
-        }),
+        // Total gallery images
+        prisma.galleryImage.count(),
     ]);
 
     return {
         success: true,
-        data: {
-            total_reservations: totalReservations,
-            today_reservations: todayReservations,
-            week_reservations: weekReservations,
-            total_menu_items: totalMenuItems,
-            pending_reservations: pendingReservations,
-            confirmed_reservations: confirmedReservations,
-        },
+
+        total_reservations: totalReservations,
+        today_reservations: todayReservations,
+        week_reservations: weekReservations,
+        total_menu_items: totalMenuItems,
+        total_events: totalEvents,
+        total_gallery_images: totalGalleryImages,
     };
 };
 

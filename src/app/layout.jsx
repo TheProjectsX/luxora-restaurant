@@ -8,20 +8,20 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <SessionProvider>
-                {/* <ToastContainer
-                    position="top-center"
-                    autoClose={3000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick={false}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                    transition={Bounce}
-                /> */}
                 <body className={`font-ubuntu flex flex-col min-h-screen`}>
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={3000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick={false}
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        transition={Bounce}
+                    />
                     <NavbarComponent />
                     <main className="flex-1 w-full max-width mb-10">
                         {children}

@@ -3,7 +3,8 @@
 import Heading from "@/components/Heading";
 import React, { useState } from "react";
 import { Button, Label, Textarea, TextInput } from "flowbite-react";
-
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 const NewTestimonial = () => {
     const [formValues, setFormValues] = useState({
         name: "",
@@ -11,12 +12,32 @@ const NewTestimonial = () => {
         rating: "",
     });
 
+    const router = useRouter();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch("/api/admin/testimonials", {
+            method: "POST",
+            body: JSON.stringify(formValues),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            toast.success("Testimonial added successfully");
+            router.push("/admin/testimonials");
+        } else {
+            toast.error("Failed to add testimonial");
+        }
+    };
+
     return (
         <div>
             <Heading className="mb-6">Add new Testimonial</Heading>
 
             <form
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
                 className="space-y-6 max-w-lg max-[770px]:mx-auto"
             >
                 <div>
