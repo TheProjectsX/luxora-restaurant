@@ -49,3 +49,21 @@
 Email: admin@admin.com
 Password: admin123
 ```
+
+## 🌐 Deployment Link
+
+[Visit Live](https://luxora-x.vercel.app)
+
+### Build Issue
+
+Had some issue while building and deploying this project. Couldn't find any solution to the problem even after an hour.
+
+Just took a step back, refreshed my brain, and came back. Started checking from the root commit. Even the root commit had the same issue.
+
+Found out the issue was from `prisma`. The new version of prisma needs the `path` where the generated code will stay. But this gave a massive error which try to scan the `C:/Users/User/...` directory.
+
+#### How did I solved?
+
+Used the classic version. Removed the path, and generated in the `node_modules/@prisma/client` folder.
+
+Wala! Problem Solved!
