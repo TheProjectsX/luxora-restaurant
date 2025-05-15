@@ -60,7 +60,7 @@ const NavbarComponent = () => {
 
                     <NavLink href="/testimonials">Testimonials</NavLink>
 
-                    <NavLink href="/pricing">Pricing</NavLink>
+                    <NavLink href="/gallery">Gallery</NavLink>
 
                     <NavLink href="/contact">Contact</NavLink>
                 </NavbarCollapse>

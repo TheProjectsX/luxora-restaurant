@@ -18,7 +18,8 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-responsive-carousel": "^3.2.23",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "yet-another-react-lightbox": "^3.23.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
