@@ -9,6 +9,14 @@ generator client {
 }
 
 // Models
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Reservation {
   id        Int      @id @default(autoincrement())
   name      String

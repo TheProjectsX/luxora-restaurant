@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import React from "react";
 import { LuLayoutDashboard } from "react-icons/lu";
@@ -8,9 +6,16 @@ import { VscPreview } from "react-icons/vsc";
 import { CiBoxList } from "react-icons/ci";
 import { GoBook } from "react-icons/go";
 import { BsCalendar4Event } from "react-icons/bs";
-// import withAdmin from "@/hoc/withAdmin";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-const Layout = ({ children }) => {
+const Layout = async ({ children }) => {
+    const session = await auth();
+
+    if (!session) {
+        redirect("/signin");
+    }
+
     return (
         <div className="relative grid overflow-visible grid-cols-[1fr_320px] w-full max-width mx-auto px-3 py-3 max-[770px]:grid-cols-1 gap-10 ">
             <div className="sm:px-2 overflow-x-hidden">{children}</div>

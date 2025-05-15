@@ -1,5 +1,8 @@
+"use client";
+
 import {
     Avatar,
+    Button,
     Dropdown,
     DropdownDivider,
     DropdownHeader,
@@ -10,8 +13,19 @@ import {
 } from "flowbite-react";
 import NavLink from "../NavLink";
 import Link from "next/link";
-
+import { signOut, useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 const NavbarComponent = () => {
+    const { data: session, update } = useSession();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        if (pathname === "/admin") {
+            update();
+        }
+    }, [pathname]);
+
     return (
         <header className="shadow-md mb-4">
             <Navbar className="max-width" fluid rounded>
@@ -27,29 +41,40 @@ const NavbarComponent = () => {
                 </Link>
                 <div className="flex md:order-2 gap-2">
                     <NavbarToggle />
-                    <Dropdown
-                        arrowIcon={false}
-                        inline
-                        label={
-                            <Avatar
-                                alt="User settings"
-                                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                                rounded
-                            />
-                        }
-                    >
-                        <DropdownHeader>
-                            <span className="block text-sm">Bonnie Green</span>
-                            <span className="block truncate text-sm font-medium">
-                                name@flowbite.com
-                            </span>
-                        </DropdownHeader>
-                        <Link href="/admin">
-                            <DropdownItem>Dashboard</DropdownItem>
+                    {session?.user && (
+                        <Dropdown
+                            arrowIcon={false}
+                            inline
+                            label={
+                                <Avatar
+                                    alt="User settings"
+                                    img="https://i.ibb.co/jkQk36Kg/2.jpg"
+                                    rounded
+                                />
+                            }
+                        >
+                            <DropdownHeader>
+                                <span className="block text-sm">
+                                    {session?.user?.name}
+                                </span>
+                                <span className="block truncate text-sm font-medium">
+                                    {session?.user?.email}
+                                </span>
+                            </DropdownHeader>
+                            <Link href="/admin">
+                                <DropdownItem>Dashboard</DropdownItem>
+                            </Link>
+                            <DropdownDivider />
+                            <DropdownItem onClick={() => signOut()}>
+                                Sign out
+                            </DropdownItem>
+                        </Dropdown>
+                    )}
+                    {session !== undefined && !session && (
+                        <Link href="/signin">
+                            <Button>Sign In</Button>
                         </Link>
-                        <DropdownDivider />
-                        <DropdownItem>Sign out</DropdownItem>
-                    </Dropdown>
+                    )}
                 </div>
                 <NavbarCollapse className="[&_.active]:text-blue-500 [&_ul]:space-x-0">
                     <NavLink href="/menu">Menu</NavLink>
