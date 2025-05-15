@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <head>
-                <link rel="icon" href="/logo.png" />
+                <link rel="icon" href="/favicon.png" />
             </head>
             <SessionProvider>
                 <body className={`font-ubuntu flex flex-col min-h-screen`}>

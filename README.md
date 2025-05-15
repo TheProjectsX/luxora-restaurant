@@ -15,8 +15,8 @@
 1. **Clone the Repo**
 
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/TheProjectsX/luxora-restaurant
+    cd luxora-restaurant
     ```
 
 2. **Install Dependencies**
@@ -46,8 +46,8 @@
 ## 🔐 Admin Credentials
 
 ```
-Email: admin@admin.com
-Password: admin123
+Email: admin@luxora.com
+Password: luxora123
 ```
 
 ## 🌐 Deployment Link
