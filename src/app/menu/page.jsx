@@ -8,7 +8,7 @@ import React from "react";
 import Ratings from "@/components/Ratings";
 
 const Menu = () => {
-    const dishData = [
+    const menuData = [
         {
             name: "Spicy Thai Basil Chicken",
             description:
@@ -100,7 +100,7 @@ const Menu = () => {
 
             {/* Results */}
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {dishData.map((item, idx) => (
+                {menuData.map((item, idx) => (
                     <div
                         key={idx}
                         className="w-full rounded-2xl shadow-xl bg-white max-w-96 mx-auto"

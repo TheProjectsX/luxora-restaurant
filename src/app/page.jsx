@@ -40,7 +40,7 @@ const Home = () => {
                 }}
             >
                 <div className="absolute inset-0 bg-black opacity-50"></div>
-                <div className="relative z-10 flex flex-col items-center justify-center h-full text-white">
+                <div className="relative flex flex-col items-center justify-center h-full text-white">
                     <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold animate-bounce font-inter text-center">
                         Where Taste Meets Luxury!
                     </h1>

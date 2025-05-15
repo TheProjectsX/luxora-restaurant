@@ -4,7 +4,7 @@ import React from "react";
 import StatCard from "./StatCard";
 import { TbMenu4, TbCalendar } from "react-icons/tb";
 import { HiArrowTrendingUp } from "react-icons/hi2";
-import { BsGrid1X2 } from "react-icons/bs";
+import { CiGrid42 } from "react-icons/ci";
 import { ShortNumber } from "@lytieuphong/short-number";
 
 import Heading from "@/components/Heading";
@@ -63,7 +63,7 @@ const Dashboard = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <StatCard
-                    Icon={BsGrid1X2}
+                    Icon={CiGrid42}
                     label="Total Reservations"
                     value={
                         isSuccess

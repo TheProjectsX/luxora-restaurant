@@ -3,11 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPrismaErrorResponse } from "@/app/api/utils";
 
 export async function POST(req: NextRequest) {
-    const { name, message, rating } = await req.json();
+    const { name, review, rating } = await req.json();
 
     try {
         const testimonial = await prisma.testimonial.create({
-            data: { name, message, rating },
+            data: { name, review, rating },
         });
 
         return NextResponse.json(

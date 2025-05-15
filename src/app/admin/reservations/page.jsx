@@ -53,7 +53,7 @@ const Reservations = () => {
     return (
         <div>
             <div className="mb-6 pt-4 w-fit flex items-center gap-5">
-                <Heading className={"!m-0 !p-0"}>Reservations</Heading>
+                <Heading>Reservations</Heading>
                 <Spinner light size="md" hidden />
             </div>
 

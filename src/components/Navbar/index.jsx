@@ -47,15 +47,6 @@ const NavbarComponent = () => {
                         <Link href="/admin">
                             <DropdownItem>Dashboard</DropdownItem>
                         </Link>
-                        <Link href="/admin/reservations">
-                            <DropdownItem>Reservations</DropdownItem>
-                        </Link>
-                        <Link href="/admin/testimonials">
-                            <DropdownItem>Testimonials</DropdownItem>
-                        </Link>
-                        <Link href="/admin/events">
-                            <DropdownItem>Events</DropdownItem>
-                        </Link>
                         <DropdownDivider />
                         <DropdownItem>Sign out</DropdownItem>
                     </Dropdown>
