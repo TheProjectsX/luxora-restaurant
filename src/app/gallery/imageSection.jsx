@@ -12,32 +12,22 @@ import "yet-another-react-lightbox/plugins/thumbnails.css";
 
 import Heading from "@/components/Heading";
 
-const ImageSection = ({
-    dataset,
-}: {
-    dataset: {
-        section: string;
-        images: {
-            src: string;
-            alt: string;
-        }[];
-    };
-}) => {
+const ImageSection = ({ dataset }) => {
     const [imageIndex, setImageIndex] = useState(-1);
 
     return (
-        <section key={dataset.section}>
-            <Heading className="mb-6">{dataset.section}</Heading>
+        <section key={dataset.category}>
+            <Heading className="mb-6">{dataset.category}</Heading>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {dataset.images.map((image, index) => (
+                {dataset.images.map((data, index) => (
                     <div
-                        className="w-full h-full cursor-pointer"
                         key={index}
+                        className="w-full h-full cursor-pointer"
                         onClick={() => setImageIndex(index)}
                     >
                         <img
-                            src={image.src}
-                            alt={image.alt}
+                            src={data.image}
+                            alt={data.title}
                             className="w-full h-full object-cover"
                         />
                     </div>
@@ -48,7 +38,10 @@ const ImageSection = ({
                 index={imageIndex}
                 open={imageIndex !== -1}
                 close={() => setImageIndex(-1)}
-                slides={dataset.images}
+                slides={dataset.images.map((data) => ({
+                    src: data.image,
+                    alt: data.title,
+                }))}
                 plugins={[Fullscreen, Slideshow, Thumbnails, Zoom]}
             />
         </section>

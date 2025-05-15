@@ -8,21 +8,23 @@ const getGalleryResponse = async (page: number, limit: number) => {
         take: limit,
     });
 
-    const total = await prisma.galleryImage.count();
+    const categorizedGallery = gallery.reduce((acc, image) => {
+        const { category } = image;
+        if (!acc[category]) {
+            acc[category] = [];
+        }
+        acc[category].push(image);
+        return acc;
+    }, {});
 
-    const totalPages = Math.ceil(total / Number(limit));
-
-    const pagination = {
-        total_pages: totalPages,
-        limit: Number(limit),
-        current_page: Number(page),
-        has_next_page: Number(page) < totalPages,
-    };
+    const filteredGallery = Object.keys(categorizedGallery).map((category) => ({
+        category,
+        images: categorizedGallery[category],
+    }));
 
     return {
         success: true,
-        data: gallery,
-        pagination,
+        data: filteredGallery,
     };
 };
 

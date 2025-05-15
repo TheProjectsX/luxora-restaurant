@@ -3,8 +3,8 @@ import React from "react";
 
 const LoadingPlaceholder = () => {
     return (
-        <div className="flex items-center justify-center h-screen">
-            <Spinner light size="md" />
+        <div className="flex items-center justify-center py-10">
+            <Spinner light size="lg" />
         </div>
     );
 };

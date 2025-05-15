@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ImageSection from "./imageSection";
+import ImageSection from "./imageSection.jsx";
 import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import EmptyLabel from "@/components/EmptyLabel";
 
@@ -27,7 +27,7 @@ const Gallery = () => {
             )}
 
             {galleryImages && galleryImages.length > 0 && (
-                <section>
+                <section className="space-y-10">
                     {galleryImages.map((galleryImage) => (
                         <ImageSection
                             key={galleryImage.section}

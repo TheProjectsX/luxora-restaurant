@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import HeroBackground from "@/assets/images/hero-background.jpg";
 import { Carousel } from "react-responsive-carousel";
@@ -9,26 +9,17 @@ import { CTAButton } from "@/components/Buttons";
 import Heading from "@/components/Heading";
 
 const Home = () => {
-    const dishes = [
-        {
-            name: "Dish Name 01",
-            description:
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil veniam, ducimus repudiandae officia quia sed aliquam consequatur eum\n\n quisquam modi perspiciatis provident nulla obcaecati ratione dignissimos repellendus tempora fugiat quidem incidunt labore? Vitae quis ipsa, nostrum molestias ipsum facere incidunt ad qui rerum eaque nemo soluta animi maxime itaque voluptas.",
-            image: "https://placehold.co/600x400",
-        },
-        {
-            name: "Dish Name 02",
-            description:
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil veniam, ducimus repudiandae officia quia sed aliquam consequatur eum\n\n quisquam modi perspiciatis provident nulla obcaecati ratione dignissimos repellendus tempora fugiat quidem incidunt labore? Vitae quis ipsa, nostrum molestias ipsum facere incidunt ad qui rerum eaque nemo soluta animi maxime itaque voluptas.",
-            image: "https://placehold.co/600x400",
-        },
-        {
-            name: "Dish Name 03",
-            description:
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil veniam, ducimus repudiandae officia quia sed aliquam consequatur eum\n\n quisquam modi perspiciatis provident nulla obcaecati ratione dignissimos repellendus tempora fugiat quidem incidunt labore? Vitae quis ipsa, nostrum molestias ipsum facere incidunt ad qui rerum eaque nemo soluta animi maxime itaque voluptas.",
-            image: "https://placehold.co/600x400",
-        },
-    ];
+    const [dishes, setDishes] = useState(null);
+
+    useEffect(() => {
+        const fetchDishes = async () => {
+            const response = await fetch("/api/menu");
+            const data = await response.json();
+            setDishes(data.data.slice(0, 3));
+        };
+
+        fetchDishes();
+    }, []);
 
     return (
         <div>
@@ -53,37 +44,39 @@ const Home = () => {
             <section className="">
                 <Heading className="mb-6">Featured Dishes</Heading>
 
-                <Carousel
-                    infiniteLoop
-                    autoPlay
-                    showArrows
-                    showThumbs={false}
-                    interval={3000}
-                    className="rounded-2xl overflow-hidden mb-8"
-                >
-                    {dishes.map((item, idx) => (
-                        <div
-                            key={idx}
-                            className="relative h-96 w-full md:flex items-center justify-between"
-                        >
-                            <div className="flex-1/2 h-full bg-gray-400">
-                                <img
-                                    src={item.image}
-                                    alt="Dish Image"
-                                    className="object-cover h-full w-full object-center"
-                                />
-                            </div>
-                            <div className="absolute inset-0 md:static flex-1/2 h-full bg-gray-200/50 md:bg-gray-200 md:text-left py-8 px-8 md:px-4 flex flex-col justify-center">
-                                <h2 className="text-2xl font-bold mb-4">
-                                    {item.name}
-                                </h2>
-                                <div className="text-sm md:text-base text-gray-600 whitespace-pre-line line-clamp-3 sm:line-clamp-5 md:line-clamp-none">
-                                    {item.description}
+                {dishes && (
+                    <Carousel
+                        infiniteLoop
+                        autoPlay
+                        showArrows
+                        showThumbs={false}
+                        interval={3000}
+                        className="rounded-2xl overflow-hidden mb-8"
+                    >
+                        {dishes.map((item, idx) => (
+                            <div
+                                key={idx}
+                                className="relative h-96 w-full md:flex items-center justify-between"
+                            >
+                                <div className="flex-1/2 h-full bg-gray-400">
+                                    <img
+                                        src={item.image}
+                                        alt="Dish Image"
+                                        className="object-cover h-full w-full object-center"
+                                    />
+                                </div>
+                                <div className="absolute inset-0 md:static flex-1/2 h-full bg-gray-200/50 md:bg-gray-200 md:text-left py-8 px-8 md:px-4 flex flex-col justify-center">
+                                    <h2 className="text-2xl font-bold mb-4">
+                                        {item.name}
+                                    </h2>
+                                    <div className="text-sm md:text-base text-gray-600 whitespace-pre-line line-clamp-3 sm:line-clamp-5 md:line-clamp-none">
+                                        {item.description}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                </Carousel>
+                        ))}
+                    </Carousel>
+                )}
 
                 <div className="flex justify-center gap-4">
                     <CTAButton

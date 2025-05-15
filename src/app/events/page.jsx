@@ -31,7 +31,7 @@ const Event = () => {
             {eventsData && eventsData.length === 0 && (
                 <>
                     <Heading>Events</Heading>
-                    <EmptyLabel>No events to show</EmptyLabel>
+                    <EmptyLabel>Currently no events are available</EmptyLabel>
                 </>
             )}
 

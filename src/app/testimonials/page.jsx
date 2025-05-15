@@ -50,7 +50,7 @@ const Testimonials = () => {
                         >
                             <div className="max-w-lg mx-auto">
                                 <Blockquote className="text-base text-center mb-3">
-                                    "{item.message}"
+                                    "{item.review}"
                                 </Blockquote>
 
                                 <div className="flex justify-center items-center">
