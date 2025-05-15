@@ -52,13 +52,13 @@ const NavbarComponent = () => {
                     </Dropdown>
                 </div>
                 <NavbarCollapse className="[&_.active]:text-blue-500 [&_ul]:space-x-0">
-                    <NavLink href="/">Home</NavLink>
-
                     <NavLink href="/menu">Menu</NavLink>
 
                     <NavLink href="/book">Book</NavLink>
 
                     <NavLink href="/testimonials">Testimonials</NavLink>
+
+                    <NavLink href="/events">Events</NavLink>
 
                     <NavLink href="/gallery">Gallery</NavLink>
 
