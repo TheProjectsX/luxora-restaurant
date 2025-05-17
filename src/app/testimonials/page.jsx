@@ -10,6 +10,7 @@ import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import EmptyLabel from "@/components/EmptyLabel";
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
+import { CTAButton } from "@/components/Buttons";
 
 const Testimonials = () => {
     const [testimonials, setTestimonials] = useState(null);
@@ -37,7 +38,7 @@ const Testimonials = () => {
             {testimonials && testimonials.length > 0 && (
                 <Carousel
                     infiniteLoop
-                    autoPlay={false}
+                    autoPlay
                     showArrows
                     showThumbs={false}
                     interval={3000}
@@ -75,6 +76,21 @@ const Testimonials = () => {
                     ))}
                 </Carousel>
             )}
+
+            <div className="flex justify-center gap-4 pt-8">
+                <CTAButton
+                    href="/menu"
+                    className="flex-1 md:flex-initial md:w-1/3 "
+                >
+                    Explore Menu
+                </CTAButton>
+                <CTAButton
+                    href="/book"
+                    className="flex-1 md:flex-initial md:w-1/3 "
+                >
+                    Book Table
+                </CTAButton>
+            </div>
         </div>
     );
 };

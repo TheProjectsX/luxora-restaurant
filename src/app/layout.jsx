@@ -1,12 +1,14 @@
+import "./globals.css";
+
 import FooterComponent from "@/components/Footer";
 import NavbarComponent from "@/components/Navbar";
 import { SessionProvider } from "next-auth/react";
-import "./globals.css";
 import { Bounce, ToastContainer } from "react-toastify";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata = {
-    title: "Luxo - Your Luxury Restaurant",
-    description: "Luxo - Your Luxury Restaurant",
+    title: "Luxora - Your Luxury Restaurant",
+    description: "Luxora - Your Luxury Restaurant",
 };
 
 export default function RootLayout({ children }) {
@@ -17,6 +19,7 @@ export default function RootLayout({ children }) {
             </head>
             <SessionProvider>
                 <body className={`font-ubuntu flex flex-col min-h-screen`}>
+                    <NextTopLoader showSpinner={false} color="dodgerblue" />
                     <ToastContainer
                         position="top-center"
                         autoClose={3000}

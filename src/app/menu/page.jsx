@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Select, TextInput } from "flowbite-react";
+import { Select, TextInput } from "flowbite-react";
 import { IoSearchOutline } from "react-icons/io5";
 import { PiPepperFill } from "react-icons/pi";
 import { LuVegan } from "react-icons/lu";
@@ -105,14 +105,7 @@ const Menu = () => {
                                         <span className="flex items-center gap-1">
                                             <Ratings
                                                 count={5}
-                                                rating={
-                                                    item.spicyLevel === "NONE"
-                                                        ? 0
-                                                        : item.spicyLevel ===
-                                                          "MEDIUM"
-                                                        ? 3
-                                                        : 5
-                                                }
+                                                rating={item.spicyLevel}
                                                 className="text-red-500"
                                             >
                                                 <PiPepperFill className="text-green-500" />

@@ -14,7 +14,7 @@ const FooterComponent = () => {
                     <div>
                         <Link
                             href="/"
-                            className="mb-4 flex items-center sm:mb-0"
+                            className="mb-4 flex items-center sm:mb-0 hover:underline underline-offset-4"
                         >
                             <img
                                 alt="Luxora Logo"
@@ -29,18 +29,18 @@ const FooterComponent = () => {
                     <FooterLinkGroup className="space-x-2">
                         <li>
                             <Link
-                                href="/about"
+                                href="/menu"
                                 className="hover:underline underline-offset-2 px-2"
                             >
-                                About
+                                Menu
                             </Link>
                         </li>
                         <li>
                             <Link
-                                href="/services"
+                                href="/events"
                                 className="hover:underline underline-offset-2 px-2"
                             >
-                                Services
+                                Events
                             </Link>
                         </li>
 
@@ -56,8 +56,8 @@ const FooterComponent = () => {
                 </div>
                 <FooterDivider />
                 <FooterCopyright
-                    href="/"
-                    by="Luxora"
+                    href="https://github.com/TheProjectsX"
+                    by="TheProjectsX"
                     year={new Date().getFullYear()}
                 />
             </div>

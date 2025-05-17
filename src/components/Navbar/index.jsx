@@ -29,7 +29,10 @@ const NavbarComponent = () => {
     return (
         <header className="shadow-md mb-4">
             <Navbar className="max-width" fluid rounded>
-                <Link className="flex items-center" href="/">
+                <Link
+                    className="flex items-center hover:underline underline-offset-4"
+                    href="/"
+                >
                     <img
                         src="/favicon.png"
                         className="mr-3 h-6 sm:h-9"

@@ -9,6 +9,11 @@ import { BsCalendar4Event } from "react-icons/bs";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
+export const metadata = {
+    title: "Luxora - Admin Panel",
+    description: "Control your restaurant from here",
+};
+
 const Layout = async ({ children }) => {
     const session = await auth();
 

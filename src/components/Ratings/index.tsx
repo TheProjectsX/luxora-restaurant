@@ -18,10 +18,10 @@ const Ratings = ({
             {Array.from({ length: count }).map((_, idx) => (
                 <span key={idx}>
                     {React.cloneElement(
-                        idx < rating ? element ?? children : children,
+                        idx < (rating ?? 0) ? element ?? children : children,
                         {
                             className:
-                                idx < rating
+                                idx < (rating ?? 0)
                                     ? element?.props.className ?? className
                                     : children.props.className,
                         }

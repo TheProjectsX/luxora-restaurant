@@ -2,11 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 
-import HeroBackground from "@/assets/images/hero-background.jpg";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { CTAButton } from "@/components/Buttons";
 import Heading from "@/components/Heading";
+import { LuVegan } from "react-icons/lu";
+import { PiPepperFill } from "react-icons/pi";
+import Ratings from "@/components/Ratings";
+import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 
 const Home = () => {
     const [dishes, setDishes] = useState(null);
@@ -24,14 +27,37 @@ const Home = () => {
     return (
         <div>
             {/* Hero Section */}
-            <section
-                className="relative bg-cover bg-center aspect-[2/1] md:aspect-[5/2] rounded-3xl overflow-hidden"
-                style={{
-                    backgroundImage: `url(${HeroBackground.src})`,
-                }}
-            >
-                <div className="absolute inset-0 bg-black opacity-50"></div>
-                <div className="relative flex flex-col items-center justify-center h-full text-white">
+
+            <section className="relative">
+                <Carousel
+                    animationHandler="fade"
+                    infiniteLoop
+                    autoPlay
+                    showArrows={false}
+                    showStatus={false}
+                    showIndicators={false}
+                    useKeyboardArrows={false}
+                    showThumbs={false}
+                    interval={3500}
+                    transitionTime={1000}
+                    className="rounded-2xl overflow-hidden"
+                >
+                    {Array.from({ length: 3 }).map((_, idx) => (
+                        <div
+                            key={idx}
+                            className="relative aspect-[2/1] md:aspect-[5/2]"
+                        >
+                            <img
+                                src={`/images/hero-background-${(idx + 1)
+                                    .toString()
+                                    .padStart(2, "0")}.jpg`}
+                                alt="Banner Image"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    ))}
+                </Carousel>
+                <div className="absolute inset-0 flex flex-col items-center justify-center h-full text-white bg-black/50 rounded-2xl">
                     <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold animate-bounce font-inter text-center">
                         Where Taste Meets Luxury!
                     </h1>
@@ -44,6 +70,12 @@ const Home = () => {
             <section className="">
                 <Heading className="mb-6">Featured Dishes</Heading>
 
+                {!dishes && (
+                    <div className="flex items-center justify-center h-96">
+                        <LoadingPlaceholder />
+                    </div>
+                )}
+
                 {dishes && (
                     <Carousel
                         infiniteLoop
@@ -51,26 +83,45 @@ const Home = () => {
                         showArrows
                         showThumbs={false}
                         interval={3000}
-                        className="rounded-2xl overflow-hidden mb-8"
+                        className="rounded-2xl overflow-hidden"
                     >
                         {dishes.map((item, idx) => (
                             <div
                                 key={idx}
-                                className="relative h-96 w-full md:flex items-center justify-between"
+                                className="relative h-96 w-full bg-center bg-cover bg-no-repeat flex items-end justify-center"
+                                style={{
+                                    backgroundImage: `url(${item.image})`,
+                                }}
                             >
-                                <div className="flex-1/2 h-full bg-gray-400">
-                                    <img
-                                        src={item.image}
-                                        alt="Dish Image"
-                                        className="object-cover h-full w-full object-center"
-                                    />
-                                </div>
-                                <div className="absolute inset-0 md:static flex-1/2 h-full bg-gray-200/50 md:bg-gray-200 md:text-left py-8 px-8 md:px-4 flex flex-col justify-center">
-                                    <h2 className="text-2xl font-bold mb-4">
-                                        {item.name}
+                                <div className=" flex flex-col justify-center text-center bg-black/30 w-full h-full sm:h-auto text-white py-6 px-4">
+                                    <h2 className="text-2xl font-bold mb-3 flex items-start justify-center gap-2">
+                                        {item.name}{" "}
+                                        <span className="text-base text-slate-100 font-normal">
+                                            ({item.price}) ৳
+                                        </span>
                                     </h2>
-                                    <div className="text-sm md:text-base text-gray-600 whitespace-pre-line line-clamp-3 sm:line-clamp-5 md:line-clamp-none">
+                                    <div className="text-sm md:text-base text-white whitespace-pre-line line-clamp-3 sm:line-clamp-5 md:line-clamp-none mb-5">
                                         {item.description}
+                                    </div>
+
+                                    <div className="flex items-center justify-center gap-2 bg-white rounded-full py-2 px-4 w-fit mx-auto">
+                                        <LuVegan
+                                            className={
+                                                item.isVegan
+                                                    ? "text-green-500"
+                                                    : "text-black"
+                                            }
+                                        />
+
+                                        <span className="flex items-center gap-1">
+                                            <Ratings
+                                                count={5}
+                                                rating={item.spicyLevel}
+                                                className="text-red-500"
+                                            >
+                                                <PiPepperFill className="text-green-500" />
+                                            </Ratings>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +129,7 @@ const Home = () => {
                     </Carousel>
                 )}
 
-                <div className="flex justify-center gap-4">
+                <div className="flex justify-center gap-4 pt-8">
                     <CTAButton
                         href="/menu"
                         className="flex-1 md:flex-initial md:w-1/3 "
