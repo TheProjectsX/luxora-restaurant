@@ -28,11 +28,8 @@ const Gallery = () => {
 
             {galleryImages && galleryImages.length > 0 && (
                 <section className="space-y-10">
-                    {galleryImages.map((galleryImage) => (
-                        <ImageSection
-                            key={galleryImage.section}
-                            dataset={galleryImage}
-                        />
+                    {galleryImages.map((galleryImage, idx) => (
+                        <ImageSection key={idx} dataset={galleryImage} />
                     ))}
                 </section>
             )}
