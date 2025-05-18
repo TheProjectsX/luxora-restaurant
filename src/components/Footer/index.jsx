@@ -37,6 +37,14 @@ const FooterComponent = () => {
                         </li>
                         <li>
                             <Link
+                                href="/about"
+                                className="hover:underline underline-offset-2 px-2"
+                            >
+                                About
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
                                 href="/events"
                                 className="hover:underline underline-offset-2 px-2"
                             >

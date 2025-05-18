@@ -29,6 +29,7 @@ const ImageSection = ({ dataset }) => {
                             src={data.image}
                             alt={data.title}
                             className="w-full h-full object-cover"
+                            loading="lazy"
                         />
                     </div>
                 ))}

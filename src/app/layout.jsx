@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
                         transition={Bounce}
                     />
                     <NavbarComponent />
-                    <main className="flex-1 w-full max-width mb-10">
+                    <main className="flex-1 w-full max-width mb-10 relative">
                         {children}
                     </main>
                     <FooterComponent />
