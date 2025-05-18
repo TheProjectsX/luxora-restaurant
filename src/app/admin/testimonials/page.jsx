@@ -7,6 +7,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { ReactHead } from "@/components/ReactHead";
 
 const Testimonials = () => {
     const [testimonialsData, setTestimonialsData] = useState(null);
@@ -54,6 +55,14 @@ const Testimonials = () => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Testimonials - Admin Dashboard</title>
+                <meta
+                    name="description"
+                    content="Manage testimonials of Luxora Restaurant."
+                />
+            </ReactHead>
+
             <div className="flex items-center gap-5 mb-6">
                 <Heading>Testimonials</Heading>
                 <Link

@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import Ratings from "@/components/Ratings";
 import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import EmptyLabel from "@/components/EmptyLabel";
+import { ReactHead } from "@/components/ReactHead";
 
 const Menu = () => {
     const [menuData, setMenuData] = useState(null);
@@ -26,6 +27,14 @@ const Menu = () => {
 
     return (
         <div className="space-y-10">
+            <ReactHead>
+                <title>Menu - Luxora Restaurant</title>
+                <meta
+                    name="description"
+                    content="Explore our menu of delicious dishes and culinary experiences."
+                />
+            </ReactHead>
+
             {/* Filter Items */}
             <section className="flex items-center justify-center gap-2 sm:gap-4">
                 <h3 className="text-2xl font-bold hidden sm:block">Filter:</h3>

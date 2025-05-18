@@ -9,6 +9,7 @@ import EmptyLabel from "@/components/EmptyLabel";
 import ShowMessage from "./ShowMessage";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { ReactHead } from "@/components/ReactHead";
 
 const Messages = () => {
     const [messagesData, setMessagesData] = useState(null);
@@ -54,6 +55,14 @@ const Messages = () => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Messages - Admin Dashboard</title>
+                <meta
+                    name="description"
+                    content="Manage messages from customers of Luxora Restaurant."
+                />
+            </ReactHead>
+
             <ShowMessage
                 message={selectedMessage}
                 closeModal={() => setSelectedMessage(null)}

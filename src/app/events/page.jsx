@@ -7,6 +7,7 @@ import { IoLocation, IoCalendar } from "react-icons/io5";
 import Link from "next/link";
 import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import EmptyLabel from "@/components/EmptyLabel";
+import { ReactHead } from "@/components/ReactHead";
 
 const Countdown = dynamic(() => import("react-countdown"), {
     ssr: false,
@@ -26,6 +27,14 @@ const Event = () => {
     }, []);
     return (
         <div className="space-y-10">
+            <ReactHead>
+                <title>Events - Luxora Restaurant</title>
+                <meta
+                    name="description"
+                    content="Discover upcoming events at Luxora Restaurant, including special occasions and culinary experiences."
+                />
+            </ReactHead>
+
             {!eventsData && <LoadingPlaceholder />}
 
             {eventsData && eventsData.length === 0 && (

@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Heading from "@/components/Heading";
 import { bookingSchema } from "@/validations/bookingSchema";
 import { toast } from "react-toastify";
+import { ReactHead } from "@/components/ReactHead";
 
 const Reservation = () => {
     const [formValues, setFormValues] = useState({
@@ -79,6 +80,14 @@ const Reservation = () => {
     };
     return (
         <div>
+            <ReactHead>
+                <title>Book a Table - Luxora Restaurant</title>
+                <meta
+                    name="description"
+                    content="Book a table at Luxora Restaurant for a delicious dining experience."
+                />
+            </ReactHead>
+
             <Heading className="mx-auto mb-8">Book a Table</Heading>
 
             <form

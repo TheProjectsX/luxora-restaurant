@@ -4,6 +4,7 @@ import Heading from "@/components/Heading";
 import { Button, Label, Textarea, TextInput } from "flowbite-react";
 import React, { useEffect, use, useState } from "react";
 import { toast } from "react-toastify";
+import { ReactHead } from "@/components/ReactHead";
 
 const NewEvent = ({ searchParams }) => {
     const { edit: eventId } = use(searchParams);
@@ -79,6 +80,14 @@ const NewEvent = ({ searchParams }) => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Add New Event - Admin Dashboard</title>
+                <meta
+                    name="description"
+                    content="Add a new event to Luxora Restaurant."
+                />
+            </ReactHead>
+
             <Heading className="mb-6">Add new Event</Heading>
 
             <form

@@ -7,6 +7,7 @@ import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import EmptyLabel from "@/components/EmptyLabel";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { ReactHead } from "@/components/ReactHead";
 
 const Events = () => {
     const [eventsData, setEventsData] = useState(null);
@@ -63,6 +64,14 @@ const Events = () => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Events - Admin Dashboard</title>
+                <meta
+                    name="description"
+                    content="Manage events at Luxora Restaurant."
+                />
+            </ReactHead>
+
             <div className="flex items-center gap-5 mb-6">
                 <Heading>Events</Heading>
                 <Link
