@@ -23,6 +23,8 @@ const getStatsResponse = async () => {
         totalMenuItems,
         totalEvents,
         totalGalleryImages,
+        totalTestimonials,
+        totalMessages,
     ] = await Promise.all([
         // Total reservations
         prisma.reservation.count(),
@@ -57,6 +59,12 @@ const getStatsResponse = async () => {
 
         // Total gallery images
         prisma.galleryImage.count(),
+
+        // Total testimonials
+        prisma.testimonial.count(),
+
+        // Total messages
+        prisma.contactMessage.count(),
     ]);
 
     return {
@@ -68,6 +76,8 @@ const getStatsResponse = async () => {
         total_menu_items: totalMenuItems,
         total_events: totalEvents,
         total_gallery_images: totalGalleryImages,
+        total_testimonials: totalTestimonials,
+        total_messages: totalMessages,
     };
 };
 

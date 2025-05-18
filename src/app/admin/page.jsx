@@ -8,6 +8,9 @@ import { CiGrid42 } from "react-icons/ci";
 import { ShortNumber } from "@lytieuphong/short-number";
 
 import Heading from "@/components/Heading";
+import { IoImageOutline, IoChatbubbleOutline } from "react-icons/io5";
+import { MdOutlineEventNote } from "react-icons/md";
+import { VscPreview } from "react-icons/vsc";
 
 const Dashboard = () => {
     const loader = (
@@ -101,7 +104,7 @@ const Dashboard = () => {
                     }
                 />
                 <StatCard
-                    Icon={TbCalendar}
+                    Icon={MdOutlineEventNote}
                     label="Total Events"
                     value={
                         adminStats
@@ -110,11 +113,29 @@ const Dashboard = () => {
                     }
                 />
                 <StatCard
-                    Icon={TbCalendar}
+                    Icon={IoImageOutline}
                     label="Total Gallery Images"
                     value={
                         adminStats
                             ? ShortNumber(adminStats.total_gallery_images)
+                            : loader
+                    }
+                />
+                <StatCard
+                    Icon={VscPreview}
+                    label="Total Testimonials"
+                    value={
+                        adminStats
+                            ? ShortNumber(adminStats.total_testimonials)
+                            : loader
+                    }
+                />
+                <StatCard
+                    Icon={IoChatbubbleOutline}
+                    label="Total Messages"
+                    value={
+                        adminStats
+                            ? ShortNumber(adminStats.total_messages)
                             : loader
                     }
                 />

@@ -8,6 +8,7 @@ import { GoBook } from "react-icons/go";
 import { BsCalendar4Event } from "react-icons/bs";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { IoImageOutline, IoChatbubbleOutline } from "react-icons/io5";
 
 export const metadata = {
     title: "Luxora - Admin Panel",
@@ -64,6 +65,20 @@ const Layout = async ({ children }) => {
                         >
                             <GoBook className="text-xl" />
                             Menu Items
+                        </Link>
+                        <Link
+                            href="/admin/gallery"
+                            className="w-full px-4 py-3 rounded bg-white hover:bg-slate-100 flex items-center gap-3"
+                        >
+                            <IoImageOutline className="text-xl" />
+                            Gallery
+                        </Link>
+                        <Link
+                            href="/admin/messages"
+                            className="w-full px-4 py-3 rounded bg-white hover:bg-slate-100 flex items-center gap-3"
+                        >
+                            <IoChatbubbleOutline className="text-xl" />
+                            Messages
                         </Link>
                     </div>
                 </div>
