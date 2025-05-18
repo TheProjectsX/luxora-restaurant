@@ -9,6 +9,7 @@ import Link from "next/link";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { Button } from "flowbite-react";
+import { ReactHead } from "@/components/ReactHead";
 
 const Gallery = () => {
     const [galleryData, setGalleryData] = useState(null);
@@ -64,6 +65,14 @@ const Gallery = () => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Gallery - Admin Dashboard</title>
+                <meta
+                    name="description"
+                    content="Manage the gallery of Luxora Restaurant."
+                />
+            </ReactHead>
+
             <div className="flex items-center gap-5 mb-6">
                 <Heading>Gallery</Heading>
                 <Link

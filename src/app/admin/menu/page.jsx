@@ -8,6 +8,7 @@ import EmptyLabel from "@/components/EmptyLabel";
 import { Button } from "flowbite-react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { ReactHead } from "@/components/ReactHead";
 
 const Menu = () => {
     const [menuData, setMenuData] = useState(null);
@@ -64,6 +65,14 @@ const Menu = () => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Menu Items - Admin Dashboard</title>
+                <meta
+                    name="description"
+                    content="Manage the menu items of Luxora Restaurant."
+                />
+            </ReactHead>
+
             <div className="flex items-center gap-5 mb-6">
                 <Heading>Menu</Heading>
                 <Link

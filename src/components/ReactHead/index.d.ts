@@ -1,6 +1,6 @@
 import React from "react";
 
-export interface UseNextHeadProps {
+export interface UseReactHeadProps {
     title?: string;
     base?: Record<string, any>;
     meta?: Record<string, any>[];
@@ -11,6 +11,6 @@ export interface UseNextHeadProps {
     template?: Record<string, any>[];
 }
 
-export declare const useNextHead: (props: UseNextHeadProps) => void;
+export declare const useReactHead: (props: UseReactHeadProps) => void;
 
-export declare const NextHead: React.FC<{ children: React.ReactElement }>;
+export declare const ReactHead: React.FC<{ children: React.ReactElement }>;

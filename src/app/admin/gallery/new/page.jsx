@@ -4,6 +4,7 @@ import Heading from "@/components/Heading";
 import { Button, Label, Select, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { ReactHead } from "@/components/ReactHead";
 
 const NewGalleryItem = () => {
     const [formValues, setFormValues] = useState({
@@ -36,6 +37,14 @@ const NewGalleryItem = () => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Add New Gallery Item - Admin Dashboard</title>
+                <meta
+                    name="description"
+                    content="Add a new gallery item to Luxora Restaurant."
+                />
+            </ReactHead>
+
             <Heading className="mb-6">Add new Event</Heading>
 
             <form

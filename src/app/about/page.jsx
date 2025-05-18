@@ -1,8 +1,16 @@
 import React from "react";
+import { ReactHead } from "@/components/ReactHead";
 
 const About = () => {
     return (
         <div className="min-h-screen bg-white">
+            <ReactHead>
+                <title>About Us - Luxora Restaurant</title>
+                <meta
+                    name="description"
+                    content="Learn more about Luxora Restaurant, our mission, and our commitment to culinary excellence."
+                />
+            </ReactHead>
             {/* Hero Section */}
             <div
                 className="relative aspect-[2/1] bg-cover bg-center bg-no-repeat w-full rounded-2xl"

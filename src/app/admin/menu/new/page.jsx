@@ -12,6 +12,7 @@ import {
 } from "flowbite-react";
 import React, { useEffect, use, useState } from "react";
 import { toast } from "react-toastify";
+import { ReactHead } from "@/components/ReactHead";
 
 const NewDish = ({ searchParams }) => {
     const { edit: dishId } = use(searchParams);
@@ -79,6 +80,14 @@ const NewDish = ({ searchParams }) => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Add New Dish - Admin Dashboard</title>
+                <meta
+                    name="description"
+                    content="Add a new dish to Luxora Restaurant."
+                />
+            </ReactHead>
+
             <Heading className="mb-6">Add new Dish</Heading>
 
             <form

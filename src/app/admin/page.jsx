@@ -11,6 +11,7 @@ import Heading from "@/components/Heading";
 import { IoImageOutline, IoChatbubbleOutline } from "react-icons/io5";
 import { MdOutlineEventNote } from "react-icons/md";
 import { VscPreview } from "react-icons/vsc";
+import { ReactHead } from "@/components/ReactHead";
 
 const Dashboard = () => {
     const [adminStats, setAdminStats] = useState(null);
@@ -27,6 +28,14 @@ const Dashboard = () => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Admin Dashboard - Luxora Restaurant</title>
+                <meta
+                    name="description"
+                    content="Admin dashboard for Luxora Restaurant."
+                />
+            </ReactHead>
+
             <Heading className="mb-6">Site Stats</Heading>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">

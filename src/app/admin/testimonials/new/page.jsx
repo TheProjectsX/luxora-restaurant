@@ -4,6 +4,7 @@ import Heading from "@/components/Heading";
 import React, { useState } from "react";
 import { Button, Label, Textarea, TextInput } from "flowbite-react";
 import { toast } from "react-toastify";
+import { ReactHead } from "@/components/ReactHead";
 
 const NewTestimonial = () => {
     const [formValues, setFormValues] = useState({
@@ -36,6 +37,14 @@ const NewTestimonial = () => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Add New Testimonial - Admin Dashboard</title>
+                <meta
+                    name="description"
+                    content="Add a new testimonial to Luxora Restaurant."
+                />
+            </ReactHead>
+
             <Heading className="mb-6">Add new Testimonial</Heading>
 
             <form

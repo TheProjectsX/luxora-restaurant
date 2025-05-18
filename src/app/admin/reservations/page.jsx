@@ -8,6 +8,7 @@ import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import EmptyLabel from "@/components/EmptyLabel";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { ReactHead } from "@/components/ReactHead";
 
 const Reservations = () => {
     const [reservationsData, setReservationsData] = useState(null);
@@ -92,6 +93,14 @@ const Reservations = () => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Reservations - Admin Dashboard</title>
+                <meta
+                    name="description"
+                    content="Manage reservations at Luxora Restaurant."
+                />
+            </ReactHead>
+
             <div className="mb-6 pt-4 w-fit flex items-center gap-5">
                 <Heading>Reservations</Heading>
                 <Spinner light size="md" hidden />

@@ -130,7 +130,7 @@ export const useReactHead = ({
 };
 
 // Component to use React Head (Recommended)
-const ReactHead = ({ children }) => {
+export const ReactHead = ({ children }) => {
     const childrenArray = React.Children.toArray(children);
 
     const title = childrenArray.find(
@@ -184,5 +184,3 @@ const ReactHead = ({ children }) => {
 
     return null;
 };
-
-export default ReactHead;

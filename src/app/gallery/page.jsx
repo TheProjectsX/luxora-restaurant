@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import ImageSection from "./imageSection.jsx";
 import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import EmptyLabel from "@/components/EmptyLabel";
+import { ReactHead } from "@/components/ReactHead";
 
 const Gallery = () => {
     const [galleryImages, setGalleryImages] = useState(null);
@@ -20,6 +21,14 @@ const Gallery = () => {
 
     return (
         <div className="space-y-10">
+            <ReactHead>
+                <title>Gallery - Luxora Restaurant</title>
+                <meta
+                    name="description"
+                    content="Explore our gallery of delicious food and beautiful dining experiences."
+                />
+            </ReactHead>
+
             {!galleryImages && <LoadingPlaceholder />}
 
             {galleryImages && galleryImages.length === 0 && (

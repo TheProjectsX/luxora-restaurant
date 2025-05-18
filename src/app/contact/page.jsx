@@ -1,6 +1,7 @@
 "use client";
 
 import Heading from "@/components/Heading";
+import { ReactHead } from "@/components/ReactHead";
 import { Textarea, TextInput, Button, Label } from "flowbite-react";
 import React, { useState } from "react";
 import { IoCallSharp, IoLocationSharp, IoMailSharp } from "react-icons/io5";
@@ -36,6 +37,14 @@ const Contact = () => {
     };
     return (
         <div>
+            <ReactHead>
+                <title>Contact Us - Luxora Restaurant</title>
+                <meta
+                    name="description"
+                    content="Contact Luxora Restaurant for any inquiries or to make a reservation."
+                />
+            </ReactHead>
+
             <Heading className="mx-auto mb-6">Contact Us</Heading>
             <div className="flex flex-col md:flex-row items-start justify-around gap-8 md:gap-4 md:py-5 mb-8">
                 {/* Business Hours Section */}

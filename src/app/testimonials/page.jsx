@@ -11,6 +11,7 @@ import EmptyLabel from "@/components/EmptyLabel";
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import { CTAButton } from "@/components/Buttons";
+import { ReactHead } from "@/components/ReactHead";
 
 const Testimonials = () => {
     const [testimonials, setTestimonials] = useState(null);
@@ -27,6 +28,14 @@ const Testimonials = () => {
 
     return (
         <div>
+            <ReactHead>
+                <title>Testimonials - Luxora Restaurant</title>
+                <meta
+                    name="description"
+                    content="Read what our customers say about Luxora Restaurant."
+                />
+            </ReactHead>
+
             <Heading className="mx-auto mb-8">Testimonials</Heading>
 
             {!testimonials && <LoadingPlaceholder />}

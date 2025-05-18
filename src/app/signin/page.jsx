@@ -3,12 +3,21 @@ import Heading from "@/components/Heading";
 import { Button, Label, TextInput } from "flowbite-react";
 import { redirect } from "next/navigation";
 import React from "react";
+import { ReactHead } from "@/components/ReactHead";
 
 const SignInPage = async ({ searchParams }) => {
     const { error } = await searchParams;
 
     return (
         <div className="w-full h-full flex justify-center items-center py-10">
+            <ReactHead>
+                <title>Sign In - Luxora Restaurant</title>
+                <meta
+                    name="description"
+                    content="Sign in to your account to manage your reservations and orders."
+                />
+            </ReactHead>
+
             <div className="w-full max-w-md">
                 <Heading className="mx-auto mb-10">
                     Login to your account
