@@ -7,6 +7,8 @@ import Heading from "@/components/Heading";
 import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import EmptyLabel from "@/components/EmptyLabel";
 import ShowMessage from "./ShowMessage";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const Messages = () => {
     const [messagesData, setMessagesData] = useState(null);
@@ -21,6 +23,34 @@ const Messages = () => {
 
         fetchMessages();
     }, []);
+
+    // Delete Message
+    const handleDeleteMessage = async (message) => {
+        const { isConfirmed } = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        });
+
+        if (!isConfirmed) return;
+
+        const response = await fetch(`/api/admin/messages/${message.id}`, {
+            method: "DELETE",
+        });
+        const data = await response.json();
+        if (data.success) {
+            toast.success(data.message);
+            setMessagesData((prev) =>
+                prev.filter((msg) => msg.id !== message.id)
+            );
+        } else {
+            toast.error(data.message);
+        }
+    };
 
     return (
         <div>
@@ -56,7 +86,7 @@ const Messages = () => {
                             {messagesData.map((message, idx) => (
                                 <tr
                                     key={idx}
-                                    className="odd:bg-white even:bg-gray-50 border-b border-gray-200 [&_td]:not-last:cursor-pointer hover:[&_td]:not-last:underline"
+                                    className="odd:bg-white even:bg-gray-50 border-b border-gray-200"
                                     onClick={(e) => {
                                         if (
                                             e.target === e.currentTarget ||
@@ -66,18 +96,18 @@ const Messages = () => {
                                         }
                                     }}
                                 >
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className="px-6 py-4 whitespace-nowrap cursor-pointer hover:underline underline-offset-2">
                                         {message.name}
                                     </td>
-                                    <td className="px-6 py-4">
+                                    <td className="px-6 py-4 cursor-pointer hover:underline underline-offset-2">
                                         {message.email}
                                     </td>
-                                    <td className="px-6 py-4 text-left max-w-md">
+                                    <td className="px-6 py-4 text-left max-w-md cursor-pointer hover:underline underline-offset-2">
                                         <p className="line-clamp-2">
                                             {message.message}
                                         </p>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className="px-6 py-4 whitespace-nowrap cursor-pointer hover:underline underline-offset-2">
                                         {new Date(
                                             message.createdAt
                                         ).toLocaleString("en-US", {
@@ -88,19 +118,21 @@ const Messages = () => {
                                     </td>
                                     <td className="py-4 space-y-1 flex flex-col items-center">
                                         <button
-                                            className="px-6 text-blue-600 hover:underline underline-offset-4 whitespace-nowrap decoration-none cursor-pointer"
+                                            className="px-6 text-blue-600 hover:underline underline-offset-4 whitespace-nowrap decoration-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:no-underline"
                                             onClick={() =>
                                                 handleReplyMessage(
                                                     message.email
                                                 )
                                             }
+                                            title="Reply is not available yet"
+                                            disabled
                                         >
                                             Reply
                                         </button>
                                         <button
-                                            className="px-6 text-red-600 hover:underline underline-offset-4 whitespace-nowrap decoration-none cursor-pointer"
+                                            className="px-6 text-red-600 hover:underline underline-offset-4 whitespace-nowrap decoration-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:no-underline"
                                             onClick={() =>
-                                                handleDeleteMessage(idx)
+                                                handleDeleteMessage(message)
                                             }
                                         >
                                             Delete

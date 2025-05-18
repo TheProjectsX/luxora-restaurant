@@ -1,18 +1,18 @@
-import { NextRequest, NextResponse } from "next/server";
 import { getPrismaErrorResponse } from "@/app/api/utils";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/app/prismaClient/prisma";
 
-export async function POST(req: NextRequest) {
-    const { name, email, message } = await req.json();
+export async function DELETE(
+    req: NextRequest,
+    { params }: { params: Promise<{ mid: string }> }
+) {
+    const { mid } = await params;
 
     try {
-        const contactMessage = await prisma.contactMessage.create({
-            data: { name, email, message },
-        });
-
+        await prisma.contactMessage.delete({ where: { id: Number(mid) } });
         return NextResponse.json({
             success: true,
-            message: "Message sent successfully",
+            message: "Message deleted successfully",
         });
     } catch (error) {
         const [errorResponse, status] = getPrismaErrorResponse(error);

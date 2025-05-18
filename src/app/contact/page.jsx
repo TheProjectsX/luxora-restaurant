@@ -4,6 +4,7 @@ import Heading from "@/components/Heading";
 import { Textarea, TextInput, Button, Label } from "flowbite-react";
 import React, { useState } from "react";
 import { IoCallSharp, IoLocationSharp, IoMailSharp } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 const Contact = () => {
     const [formValues, setFormValues] = useState({
@@ -99,6 +100,7 @@ const Contact = () => {
                             <Label className="flex flex-col gap-2">
                                 Your Name
                                 <TextInput
+                                    name="name"
                                     type="text"
                                     placeholder="John Doe"
                                     value={formValues.name}
@@ -117,6 +119,7 @@ const Contact = () => {
                             <Label className="flex flex-col gap-2">
                                 Your Email
                                 <TextInput
+                                    name="email"
                                     type="email"
                                     placeholder="john.doe@example.com"
                                     value={formValues.email}
@@ -135,6 +138,7 @@ const Contact = () => {
                             <Label className="flex flex-col gap-2">
                                 Your Message
                                 <Textarea
+                                    name="message"
                                     placeholder="Your message"
                                     value={formValues.message}
                                     onChange={(e) =>

@@ -13,43 +13,6 @@ import { MdOutlineEventNote } from "react-icons/md";
 import { VscPreview } from "react-icons/vsc";
 
 const Dashboard = () => {
-    const loader = (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="34.67"
-            height="8"
-            viewBox="0 44 52 12"
-        >
-            <circle fill="#000" stroke="none" cx="6" cy="50" r="6">
-                <animate
-                    attributeName="opacity"
-                    dur="1.2s"
-                    values="0;1;0"
-                    repeatCount="indefinite"
-                    begin="0.1"
-                />
-            </circle>
-            <circle fill="#000" stroke="none" cx="26" cy="50" r="6">
-                <animate
-                    attributeName="opacity"
-                    dur="1.2s"
-                    values="0;1;0"
-                    repeatCount="indefinite"
-                    begin="0.2"
-                />
-            </circle>
-            <circle fill="#000" stroke="none" cx="46" cy="50" r="6">
-                <animate
-                    attributeName="opacity"
-                    dur="1.2s"
-                    values="0;1;0"
-                    repeatCount="indefinite"
-                    begin="0.3"
-                />
-            </circle>
-        </svg>
-    );
-
     const [adminStats, setAdminStats] = useState(null);
 
     useEffect(() => {
@@ -73,7 +36,7 @@ const Dashboard = () => {
                     value={
                         adminStats
                             ? ShortNumber(adminStats.total_reservations)
-                            : loader
+                            : null
                     }
                 />
                 <StatCard
@@ -82,7 +45,7 @@ const Dashboard = () => {
                     value={
                         adminStats
                             ? ShortNumber(adminStats.today_reservations)
-                            : loader
+                            : null
                     }
                 />
                 <StatCard
@@ -91,7 +54,7 @@ const Dashboard = () => {
                     value={
                         adminStats
                             ? ShortNumber(adminStats.week_reservations)
-                            : loader
+                            : null
                     }
                 />
                 <StatCard
@@ -100,16 +63,14 @@ const Dashboard = () => {
                     value={
                         adminStats
                             ? ShortNumber(adminStats.total_menu_items)
-                            : loader
+                            : null
                     }
                 />
                 <StatCard
                     Icon={MdOutlineEventNote}
                     label="Total Events"
                     value={
-                        adminStats
-                            ? ShortNumber(adminStats.total_events)
-                            : loader
+                        adminStats ? ShortNumber(adminStats.total_events) : null
                     }
                 />
                 <StatCard
@@ -118,7 +79,7 @@ const Dashboard = () => {
                     value={
                         adminStats
                             ? ShortNumber(adminStats.total_gallery_images)
-                            : loader
+                            : null
                     }
                 />
                 <StatCard
@@ -127,7 +88,7 @@ const Dashboard = () => {
                     value={
                         adminStats
                             ? ShortNumber(adminStats.total_testimonials)
-                            : loader
+                            : null
                     }
                 />
                 <StatCard
@@ -136,7 +97,7 @@ const Dashboard = () => {
                     value={
                         adminStats
                             ? ShortNumber(adminStats.total_messages)
-                            : loader
+                            : null
                     }
                 />
             </div>

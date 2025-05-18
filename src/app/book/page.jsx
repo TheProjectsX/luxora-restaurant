@@ -82,6 +82,7 @@ const Book = () => {
                         Your name
                         <TextInput
                             type="text"
+                            name="name"
                             placeholder="John Doe"
                             value={formValues.name}
                             onChange={(e) =>
@@ -99,6 +100,7 @@ const Book = () => {
                         Your email
                         <TextInput
                             type="email"
+                            name="email"
                             placeholder="name@flowbite.com"
                             value={formValues.email}
                             onChange={(e) =>
@@ -116,6 +118,7 @@ const Book = () => {
                         Your phone
                         <TextInput
                             type="tel"
+                            name="phone"
                             placeholder="123-456-7890"
                             value={formValues.phone}
                             onChange={(e) =>
@@ -133,6 +136,7 @@ const Book = () => {
                         Number of guests
                         <TextInput
                             type="number"
+                            name="guests"
                             min="1"
                             placeholder="1"
                             value={formValues.guests}
@@ -151,6 +155,7 @@ const Book = () => {
                         <Label className="flex flex-col gap-2">
                             Pick a Date
                             <DatePicker
+                                name="date"
                                 selected={formValues.date}
                                 onChange={(date) =>
                                     setFormValues({
@@ -174,6 +179,7 @@ const Book = () => {
                             Pick a Time
                             <TextInput
                                 type="time"
+                                name="time"
                                 placeholder="12:00"
                                 value={formValues.time}
                                 onChange={(e) =>
