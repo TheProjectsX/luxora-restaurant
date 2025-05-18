@@ -5,47 +5,81 @@ import {
     Button,
     Label,
     RangeSlider,
+    Select,
     Textarea,
     TextInput,
     ToggleSwitch,
 } from "flowbite-react";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect, use, useState } from "react";
 import { toast } from "react-toastify";
 
-const NewDish = () => {
+const NewDish = ({ searchParams }) => {
+    const { edit: dishId } = use(searchParams);
+
     const [formValues, setFormValues] = useState({
         name: "",
         description: "",
+        image: "",
         price: "",
-        category: "",
+        category: "Starters",
         isVegan: false,
         spicyLevel: 0,
     });
 
-    const router = useRouter();
+    useEffect(() => {
+        const fetchDish = async () => {
+            const response = await fetch(`/api/admin/menu/${dishId}`);
+            const data = await response.json();
+            if (data.success) {
+                setFormValues(data.data);
+            }
+        };
+
+        if (dishId) {
+            fetchDish();
+        }
+    }, [dishId]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch("/api/admin/menu", {
-            method: "POST",
-            body: JSON.stringify(formValues),
-        });
+        let response;
+
+        if (dishId) {
+            response = await fetch(`/api/admin/menu/${dishId}`, {
+                method: "PUT",
+                body: JSON.stringify(formValues),
+            });
+        } else {
+            response = await fetch("/api/admin/menu", {
+                method: "POST",
+                body: JSON.stringify(formValues),
+            });
+        }
 
         const data = await response.json();
 
         if (data.success) {
-            toast.success("Dish added successfully");
-            router.push("/admin/menu");
+            toast.success(data.message);
+            if (!dishId) {
+                setFormValues({
+                    name: "",
+                    description: "",
+                    image: "",
+                    price: "",
+                    category: "Starters",
+                    isVegan: false,
+                    spicyLevel: 0,
+                });
+            }
         } else {
-            toast.error("Failed to add dish");
+            toast.error(data.error ?? "Failed to perform action");
         }
     };
 
     return (
         <div>
-            <Heading className="mb-6">Add new Event</Heading>
+            <Heading className="mb-6">Add new Dish</Heading>
 
             <form
                 onSubmit={handleSubmit}
@@ -55,6 +89,7 @@ const NewDish = () => {
                     <Label className="flex flex-col gap-2">
                         Name
                         <TextInput
+                            name="name"
                             type="text"
                             placeholder="Spicy Thai Basil Chicken"
                             value={formValues.name}
@@ -71,14 +106,34 @@ const NewDish = () => {
 
                 <div>
                     <Label className="flex flex-col gap-2">
+                        Image
+                        <TextInput
+                            name="image"
+                            type="text"
+                            placeholder="https://example.com/image.jpg"
+                            value={formValues.image}
+                            onChange={(e) =>
+                                setFormValues({
+                                    ...formValues,
+                                    image: e.target.value,
+                                })
+                            }
+                            required
+                        />
+                    </Label>
+                </div>
+
+                <div>
+                    <Label className="flex flex-col gap-2">
                         Description
                         <Textarea
+                            name="description"
                             placeholder="Dish description..."
                             value={formValues.description}
                             onChange={(e) =>
                                 setFormValues({
                                     ...formValues,
-                                    review: e.target.value,
+                                    description: e.target.value,
                                 })
                             }
                             rows={3}
@@ -91,13 +146,14 @@ const NewDish = () => {
                     <Label className="flex flex-col gap-2">
                         Price (৳)
                         <TextInput
+                            name="price"
                             type="number"
                             placeholder="10"
                             value={formValues.price}
                             onChange={(e) =>
                                 setFormValues({
                                     ...formValues,
-                                    date: e.target.value,
+                                    price: e.target.value,
                                 })
                             }
                             required
@@ -108,9 +164,8 @@ const NewDish = () => {
                 <div>
                     <Label className="flex flex-col gap-2">
                         Category
-                        <TextInput
-                            type="text"
-                            placeholder="Main Dish"
+                        <Select
+                            name="category"
                             value={formValues.category}
                             onChange={(e) =>
                                 setFormValues({
@@ -119,7 +174,14 @@ const NewDish = () => {
                                 })
                             }
                             required
-                        />
+                        >
+                            <option>Starters</option>
+                            <option>Mains</option>
+                            <option>Desserts</option>
+                            <option>Drinks</option>
+                            <option>Vegan</option>
+                            <option>Seasonal</option>
+                        </Select>
                     </Label>
                 </div>
 
@@ -133,6 +195,7 @@ const NewDish = () => {
                         </span>
 
                         <RangeSlider
+                            name="spicyLevel"
                             min={0}
                             max={5}
                             step={1}
@@ -149,6 +212,7 @@ const NewDish = () => {
 
                 <div>
                     <ToggleSwitch
+                        name="isVegan"
                         checked={formValues.isVegan}
                         label="Is this dish vegan?"
                         onChange={(e) =>

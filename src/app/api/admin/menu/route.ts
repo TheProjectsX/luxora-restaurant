@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPrismaErrorResponse } from "@/app/api/utils";
 
 export async function POST(req: NextRequest) {
-    const { name, description, price, category, isVegan, spicyLevel, image } =
+    const { name, description, image, price, category, isVegan, spicyLevel } =
         await req.json();
 
     try {
@@ -11,11 +11,11 @@ export async function POST(req: NextRequest) {
             data: {
                 name,
                 description,
-                price,
-                category,
-                isVegan,
-                spicyLevel,
                 image,
+                price: Number(price),
+                category,
+                isVegan: isVegan === "true",
+                spicyLevel: Number(spicyLevel),
             },
         });
 

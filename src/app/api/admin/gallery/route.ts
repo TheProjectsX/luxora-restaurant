@@ -26,6 +26,9 @@ const getGalleryResponse = async (page: number, limit: number) => {
     const gallery = await prisma.galleryImage.findMany({
         skip: (page - 1) * limit,
         take: limit,
+        orderBy: {
+            createdAt: "desc",
+        },
     });
 
     const total = await prisma.galleryImage.count();

@@ -28,6 +28,8 @@ export async function PUT(
 
     const body = await req.json();
     const data = filterDefinedFields(body);
+    data.date = data.date ? new Date(data.date) : null;
+    data.deadline = data.deadline ? new Date(data.deadline) : null;
 
     try {
         const event = await prisma.event.update({
@@ -39,6 +41,38 @@ export async function PUT(
             success: true,
             message: "Event updated successfully",
             id: event.id,
+        });
+    } catch (error) {
+        const [errorResponse, status] = getPrismaErrorResponse(error);
+        return NextResponse.json(errorResponse, status);
+    }
+}
+
+export async function GET(
+    req: NextRequest,
+    { params }: { params: Promise<{ eid: string }> }
+) {
+    const { eid } = await params;
+
+    try {
+        const event = await prisma.event.findUnique({
+            where: { id: Number(eid) },
+        });
+
+        if (!event) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "Event not found",
+                },
+                { status: 404 }
+            );
+        }
+
+        return NextResponse.json({
+            success: true,
+            message: "Event fetched successfully",
+            data: event,
         });
     } catch (error) {
         const [errorResponse, status] = getPrismaErrorResponse(error);

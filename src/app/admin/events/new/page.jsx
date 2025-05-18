@@ -2,35 +2,78 @@
 
 import Heading from "@/components/Heading";
 import { Button, Label, Textarea, TextInput } from "flowbite-react";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect, use, useState } from "react";
 import { toast } from "react-toastify";
 
-const NewEvent = () => {
+const NewEvent = ({ searchParams }) => {
+    const { edit: eventId } = use(searchParams);
+
     const [formValues, setFormValues] = useState({
         name: "",
+        banner: "",
         description: "",
         date: "",
+        deadline: "",
         location: "",
     });
 
-    const router = useRouter();
+    useEffect(() => {
+        const fetchEvent = async () => {
+            const response = await fetch(`/api/admin/events/${eventId}`);
+            const data = await response.json();
+            if (data.success) {
+                setFormValues({
+                    ...data.data,
+                    date: data.data?.date
+                        ? new Date(data.data.date).toISOString().split("T")[0]
+                        : "",
+                    deadline: data.data?.deadline
+                        ? new Date(data.data.deadline)
+                              .toISOString()
+                              .split("T")[0]
+                        : "",
+                });
+            }
+        };
+
+        if (eventId) {
+            fetchEvent();
+        }
+    }, [eventId]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch("/api/admin/events", {
-            method: "POST",
-            body: JSON.stringify(formValues),
-        });
+        let response;
+
+        if (eventId) {
+            response = await fetch(`/api/admin/events/${eventId}`, {
+                method: "PUT",
+                body: JSON.stringify(formValues),
+            });
+        } else {
+            response = await fetch("/api/admin/events", {
+                method: "POST",
+                body: JSON.stringify(formValues),
+            });
+        }
 
         const data = await response.json();
 
         if (data.success) {
-            toast.success("Event added successfully");
-            router.push("/admin/events");
+            toast.success(data.message);
+            if (!eventId) {
+                setFormValues({
+                    name: "",
+                    banner: "",
+                    description: "",
+                    date: "",
+                    deadline: "",
+                    location: "",
+                });
+            }
         } else {
-            toast.error("Failed to add event");
+            toast.error(data.error ?? "Failed to perform action");
         }
     };
 
@@ -44,10 +87,11 @@ const NewEvent = () => {
             >
                 <div>
                     <Label className="flex flex-col gap-2">
-                        Name
+                        Event Name
                         <TextInput
+                            name="name"
                             type="text"
-                            placeholder="John Doe"
+                            placeholder="Event Name"
                             value={formValues.name}
                             onChange={(e) =>
                                 setFormValues({
@@ -59,17 +103,36 @@ const NewEvent = () => {
                         />
                     </Label>
                 </div>
+                <div>
+                    <Label className="flex flex-col gap-2">
+                        Event Banner
+                        <TextInput
+                            name="banner"
+                            type="text"
+                            placeholder="https://example.com/image.jpg"
+                            value={formValues.banner}
+                            onChange={(e) =>
+                                setFormValues({
+                                    ...formValues,
+                                    banner: e.target.value,
+                                })
+                            }
+                            required
+                        />
+                    </Label>
+                </div>
 
                 <div>
                     <Label className="flex flex-col gap-2">
-                        Description
+                        Event Description
                         <Textarea
+                            name="description"
                             placeholder="Event description..."
                             value={formValues.description}
                             onChange={(e) =>
                                 setFormValues({
                                     ...formValues,
-                                    review: e.target.value,
+                                    description: e.target.value,
                                 })
                             }
                             rows={3}
@@ -80,8 +143,9 @@ const NewEvent = () => {
 
                 <div>
                     <Label className="flex flex-col gap-2">
-                        Date
+                        Event Date
                         <TextInput
+                            name="date"
                             type="date"
                             min={new Date().toISOString().split("T")[0]}
                             placeholder="2025-01-01"
@@ -92,17 +156,36 @@ const NewEvent = () => {
                                     date: e.target.value,
                                 })
                             }
-                            required
                         />
                     </Label>
                 </div>
 
                 <div>
                     <Label className="flex flex-col gap-2">
-                        Location
+                        Event Deadline
                         <TextInput
+                            name="date"
+                            type="date"
+                            min={new Date().toISOString().split("T")[0]}
+                            placeholder="2025-01-01"
+                            value={formValues.deadline}
+                            onChange={(e) =>
+                                setFormValues({
+                                    ...formValues,
+                                    deadline: e.target.value,
+                                })
+                            }
+                        />
+                    </Label>
+                </div>
+
+                <div>
+                    <Label className="flex flex-col gap-2">
+                        Event Location
+                        <TextInput
+                            name="location"
                             type="text"
-                            placeholder="Main Dining Hall"
+                            placeholder="Event Location"
                             value={formValues.location}
                             onChange={(e) =>
                                 setFormValues({

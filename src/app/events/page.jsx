@@ -86,10 +86,10 @@ const Event = () => {
                         </div>
 
                         <div
-                            className="w-full aspect-[2/1] lg:aspect-[3/1] bg-cover bg-center bg-no-repeat relative"
+                            className="w-full aspect-[2/1] lg:aspect-[3/1] bg-cover bg-center bg-no-repeat relative rounded-xl"
                             style={{ backgroundImage: `url(${event.banner})` }}
                         >
-                            <div className="absolute inset-0 bg-black/50"></div>
+                            <div className="absolute inset-0 bg-black/50 rounded-xl"></div>
 
                             <div className="absolute sm:bottom-14 sm:left-8 max-sm:inset-0 max-sm:w-full max-sm:h-full flex items-center justify-center mx-auto max-w-sm sm:max-w-md">
                                 <div className="flex flex-col max-sm:items-center max-sm:justify-center gap-2">
@@ -105,19 +105,21 @@ const Event = () => {
                                             <IoLocation />
                                             {event.location}
                                         </p>
-                                        <p className="text-white text-sm flex items-center gap-2">
-                                            <IoCalendar />
-                                            {new Date(
-                                                event.date
-                                            ).toLocaleString("en-US", {
-                                                hour: "numeric",
-                                                minute: "numeric",
-                                                hour12: true,
-                                                day: "2-digit",
-                                                month: "2-digit",
-                                                year: "numeric",
-                                            })}
-                                        </p>
+                                        {event.date && (
+                                            <p className="text-white text-sm flex items-center gap-2">
+                                                <IoCalendar />
+                                                {new Date(
+                                                    event.date
+                                                ).toLocaleString("en-US", {
+                                                    hour: "numeric",
+                                                    minute: "numeric",
+                                                    hour12: true,
+                                                    day: "2-digit",
+                                                    month: "2-digit",
+                                                    year: "numeric",
+                                                })}
+                                            </p>
+                                        )}
                                     </div>
 
                                     <div className="flex items-center gap-2">

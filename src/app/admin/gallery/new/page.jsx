@@ -1,21 +1,21 @@
 "use client";
 
 import Heading from "@/components/Heading";
+import { Button, Label, Select, TextInput } from "flowbite-react";
 import React, { useState } from "react";
-import { Button, Label, Textarea, TextInput } from "flowbite-react";
 import { toast } from "react-toastify";
 
-const NewTestimonial = () => {
+const NewGalleryItem = () => {
     const [formValues, setFormValues] = useState({
-        name: "",
-        review: "",
-        rating: "",
+        title: "",
+        image: "",
+        category: "Dining Area",
     });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch("/api/admin/testimonials", {
+        const response = await fetch("/api/admin/gallery", {
             method: "POST",
             body: JSON.stringify(formValues),
         });
@@ -23,20 +23,20 @@ const NewTestimonial = () => {
         const data = await response.json();
 
         if (data.success) {
-            toast.success(data.message);
+            toast.success("Gallery item added successfully");
             setFormValues({
-                name: "",
-                review: "",
-                rating: "",
+                title: "",
+                image: "",
+                category: "Dining Area",
             });
         } else {
-            toast.error(data.error ?? "Failed to add testimonial");
+            toast.error("Failed to add gallery item");
         }
     };
 
     return (
         <div>
-            <Heading className="mb-6">Add new Testimonial</Heading>
+            <Heading className="mb-6">Add new Event</Heading>
 
             <form
                 onSubmit={handleSubmit}
@@ -44,15 +44,16 @@ const NewTestimonial = () => {
             >
                 <div>
                     <Label className="flex flex-col gap-2">
-                        Name
+                        Title
                         <TextInput
+                            name="title"
                             type="text"
-                            placeholder="John Doe"
-                            value={formValues.name}
+                            placeholder="Spicy Thai Basil Chicken"
+                            value={formValues.title}
                             onChange={(e) =>
                                 setFormValues({
                                     ...formValues,
-                                    name: e.target.value,
+                                    title: e.target.value,
                                 })
                             }
                             required
@@ -62,33 +63,16 @@ const NewTestimonial = () => {
 
                 <div>
                     <Label className="flex flex-col gap-2">
-                        Review
-                        <Textarea
-                            placeholder="User review..."
-                            value={formValues.review}
-                            onChange={(e) =>
-                                setFormValues({
-                                    ...formValues,
-                                    review: e.target.value,
-                                })
-                            }
-                            rows={3}
-                            required
-                        />
-                    </Label>
-                </div>
-
-                <div>
-                    <Label className="flex flex-col gap-2">
-                        Rating
+                        Image
                         <TextInput
-                            type="number"
-                            placeholder="4"
-                            value={formValues.rating}
+                            name="image"
+                            type="text"
+                            placeholder="https://example.com/image.jpg"
+                            value={formValues.image}
                             onChange={(e) =>
                                 setFormValues({
                                     ...formValues,
-                                    rating: e.target.value,
+                                    image: e.target.value,
                                 })
                             }
                             required
@@ -96,7 +80,28 @@ const NewTestimonial = () => {
                     </Label>
                 </div>
 
-                <Button type="submit" className="w-full">
+                <div>
+                    <Label className="flex flex-col gap-2">
+                        Category
+                        <Select
+                            name="category"
+                            value={formValues.category}
+                            onChange={(e) =>
+                                setFormValues({
+                                    ...formValues,
+                                    category: e.target.value,
+                                })
+                            }
+                            required
+                        >
+                            <option>Dining Area</option>
+                            <option>Dish</option>
+                            <option>Events</option>
+                        </Select>
+                    </Label>
+                </div>
+
+                <Button type="submit" className="w-full cursor-pointer">
                     Submit
                 </Button>
             </form>
@@ -104,4 +109,4 @@ const NewTestimonial = () => {
     );
 };
 
-export default NewTestimonial;
+export default NewGalleryItem;

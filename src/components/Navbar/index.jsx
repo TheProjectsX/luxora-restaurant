@@ -82,7 +82,7 @@ const NavbarComponent = () => {
                 <NavbarCollapse className="[&_.active]:text-blue-500 [&_ul]:space-x-0">
                     <NavLink href="/menu">Menu</NavLink>
 
-                    <NavLink href="/book">Book</NavLink>
+                    <NavLink href="/reservation">Reserve</NavLink>
 
                     <NavLink href="/testimonials">Testimonials</NavLink>
 

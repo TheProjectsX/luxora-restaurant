@@ -8,7 +8,7 @@ import Heading from "@/components/Heading";
 import { bookingSchema } from "@/validations/bookingSchema";
 import { toast } from "react-toastify";
 
-const Book = () => {
+const Reservation = () => {
     const [formValues, setFormValues] = useState({
         name: "",
         email: "",
@@ -56,7 +56,7 @@ const Book = () => {
             date: date.toISOString(),
         };
 
-        const response = await fetch("/api/book", {
+        const response = await fetch("/api/reservations", {
             method: "POST",
             body: JSON.stringify(body),
         });
@@ -64,9 +64,17 @@ const Book = () => {
         const data = await response.json();
 
         if (data.success) {
-            toast.success("Booking submitted successfully");
+            toast.success(data.message);
+            setFormValues({
+                name: "",
+                email: "",
+                phone: "",
+                guests: 1,
+                date: null,
+                time: "12:00",
+            });
         } else {
-            toast.error("Failed to submit booking");
+            toast.error(data.error ?? "Failed to submit booking");
         }
     };
     return (
@@ -198,4 +206,4 @@ const Book = () => {
     );
 };
 
-export default Book;
+export default Reservation;

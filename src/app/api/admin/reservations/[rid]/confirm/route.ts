@@ -11,7 +11,7 @@ export async function PUT(
 
         await prisma.reservation.update({
             where: { id: Number(rid) },
-            data: { status: "CONFIRMED" },
+            data: { status: "confirmed" },
         });
 
         return NextResponse.json({

@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
 
     try {
         const testimonial = await prisma.testimonial.create({
-            data: { name, review, rating },
+            data: { name, review, rating: Number(rating) },
         });
 
         return NextResponse.json(

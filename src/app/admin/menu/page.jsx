@@ -1,25 +1,53 @@
 "use client";
 
 import Heading from "@/components/Heading";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import EmptyLabel from "@/components/EmptyLabel";
+import { Button } from "flowbite-react";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const Menu = () => {
     const [menuData, setMenuData] = useState(null);
+    const [pagination, setPagination] = useState(null);
 
     useEffect(() => {
         const fetchMenuData = async () => {
-            const response = await fetch("/api/menu");
+            const response = await fetch("/api/menu?limit=8");
             const data = await response.json();
             setMenuData(data.data);
+            setPagination(data.pagination);
         };
 
         fetchMenuData();
     }, []);
 
+    // Load More Data
+    const handleLoadMore = async () => {
+        const response = await fetch(
+            `/api/menu?limit=8&page=${pagination.current_page + 1}`
+        );
+        const data = await response.json();
+        setMenuData((prev) => [...prev, ...data.data]);
+        setPagination(data.pagination);
+    };
+
+    // Delete Menu Item
     const handleDeleteMenuItem = async (dish) => {
+        const { isConfirmed } = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        });
+
+        if (!isConfirmed) return;
+
         const response = await fetch(`/api/admin/menu/${dish.id}`, {
             method: "DELETE",
         });
@@ -28,12 +56,11 @@ const Menu = () => {
 
         if (data.success) {
             toast.success("Dish deleted successfully");
+            setMenuData((prev) => prev.filter((item) => item.id !== dish.id));
         } else {
             toast.error("Failed to delete dish");
         }
     };
-
-    const handleUpdateMenuItem = async (dish) => {};
 
     return (
         <div>
@@ -93,14 +120,12 @@ const Menu = () => {
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="flex flex-col items-center justify-center gap-2">
-                                            <button
-                                                onClick={() =>
-                                                    handleUpdateMenuItem(item)
-                                                }
+                                            <Link
+                                                href={`/admin/menu/new?edit=${item.id}`}
                                                 className="text-blue-600 hover:underline"
                                             >
                                                 Update
-                                            </button>
+                                            </Link>
                                             <button
                                                 onClick={() =>
                                                     handleDeleteMenuItem(item)
@@ -115,6 +140,18 @@ const Menu = () => {
                             ))}
                         </tbody>
                     </table>
+                </div>
+            )}
+
+            {pagination?.has_next_page && (
+                <div className="flex justify-center mt-6">
+                    <Button
+                        color={"dark"}
+                        onClick={() => handleLoadMore()}
+                        className="cursor-pointer"
+                    >
+                        Load More
+                    </Button>
                 </div>
             )}
         </div>

@@ -6,6 +6,7 @@ import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const Testimonials = () => {
     const [testimonialsData, setTestimonialsData] = useState(null);
@@ -21,6 +22,18 @@ const Testimonials = () => {
     }, []);
 
     const handleDeleteTestimonial = async (testimonial) => {
+        const { isConfirmed } = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        });
+
+        if (!isConfirmed) return;
+
         const response = await fetch(
             `/api/admin/testimonials/${testimonial.id}`,
             {
@@ -30,9 +43,12 @@ const Testimonials = () => {
         const data = await response.json();
 
         if (data.success) {
-            toast.success("Item Deleted!");
+            toast.success(data.message);
+            setTestimonialsData((prev) =>
+                prev.filter((item) => item.id !== testimonial.id)
+            );
         } else {
-            toast.error("Failed to Delete Item");
+            toast.error(data.error ?? "Failed to delete testimonial");
         }
     };
 

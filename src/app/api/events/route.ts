@@ -6,6 +6,9 @@ const getEventsResponse = async (page: number, limit: number) => {
     const events = await prisma.event.findMany({
         skip: (page - 1) * limit,
         take: limit,
+        orderBy: {
+            createdAt: "desc",
+        },
     });
 
     const total = await prisma.event.count();

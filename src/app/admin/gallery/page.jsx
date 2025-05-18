@@ -1,30 +1,77 @@
 "use client";
 
-import { Spinner } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 
 import Heading from "@/components/Heading";
 import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import EmptyLabel from "@/components/EmptyLabel";
+import Link from "next/link";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import { Button } from "flowbite-react";
 
 const Gallery = () => {
     const [galleryData, setGalleryData] = useState(null);
+    const [pagination, setPagination] = useState(null);
 
     useEffect(() => {
         const fetchGallery = async () => {
-            const response = await fetch("/api/admin/gallery");
+            const response = await fetch("/api/admin/gallery?limit=8");
             const data = await response.json();
             setGalleryData(data.data);
+            setPagination(data.pagination);
         };
 
         fetchGallery();
     }, []);
 
+    // Delete Gallery Item
+    const handleDeleteGalleryItem = async (item) => {
+        const { isConfirmed } = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        });
+
+        if (!isConfirmed) return;
+
+        const response = await fetch(`/api/admin/gallery/${item.id}`, {
+            method: "DELETE",
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            toast.success(data.message);
+            setGalleryData((prev) => prev.filter((i) => i.id !== item.id));
+        } else {
+            toast.error(data.error);
+        }
+    };
+
+    // Load More Data
+    const handleLoadMore = async () => {
+        const response = await fetch(
+            `/api/admin/gallery?limit=8&page=${pagination.current_page + 1}`
+        );
+        const data = await response.json();
+        setGalleryData((prev) => [...prev, ...data.data]);
+        setPagination(data.pagination);
+    };
+
     return (
         <div>
-            <div className="mb-6 pt-4 w-fit flex items-center gap-5">
+            <div className="flex items-center gap-5 mb-6">
                 <Heading>Gallery</Heading>
-                <Spinner light size="md" hidden />
+                <Link
+                    href="/admin/gallery/new"
+                    className="text-primary-600 hover:underline underline-offset-4"
+                >
+                    Add New
+                </Link>
             </div>
 
             {!galleryData && <LoadingPlaceholder />}
@@ -66,7 +113,7 @@ const Gallery = () => {
                                         <button
                                             className="text-red-600 hover:underline whitespace-nowrap"
                                             onClick={() =>
-                                                handleDeleteGalleryItem(item.id)
+                                                handleDeleteGalleryItem(item)
                                             }
                                         >
                                             Delete
@@ -76,6 +123,18 @@ const Gallery = () => {
                             ))}
                         </tbody>
                     </table>
+                </div>
+            )}
+
+            {pagination?.has_next_page && (
+                <div className="flex justify-center mt-6">
+                    <Button
+                        color={"dark"}
+                        onClick={() => handleLoadMore()}
+                        className="cursor-pointer"
+                    >
+                        Load More
+                    </Button>
                 </div>
             )}
         </div>

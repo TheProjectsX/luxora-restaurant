@@ -45,3 +45,33 @@ export async function DELETE(
         return NextResponse.json(errorResponse, status);
     }
 }
+
+export async function GET(
+    req: NextRequest,
+    { params }: { params: Promise<{ mid: string }> }
+) {
+    const { mid } = await params;
+
+    try {
+        const dish = await prisma.dish.findUnique({
+            where: { id: Number(mid) },
+        });
+        if (!dish) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "Dish not found",
+                },
+                { status: 404 }
+            );
+        }
+
+        return NextResponse.json({
+            success: true,
+            data: dish,
+        });
+    } catch (error) {
+        const [errorResponse, status] = getPrismaErrorResponse(error);
+        return NextResponse.json(errorResponse, status);
+    }
+}

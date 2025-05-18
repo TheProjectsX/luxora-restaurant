@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPrismaErrorResponse } from "@/app/api/utils";
 import prisma from "@/app/prismaClient/prisma";
 
-const getGalleryResponse = async (page: number, limit: number) => {
+const getGalleryResponse = async () => {
     const gallery = await prisma.galleryImage.findMany({
-        skip: (page - 1) * limit,
-        take: limit,
+        orderBy: {
+            createdAt: "desc",
+        },
     });
 
     const categorizedGallery = gallery.reduce((acc, image) => {
@@ -29,13 +30,8 @@ const getGalleryResponse = async (page: number, limit: number) => {
 };
 
 export async function GET(req: NextRequest) {
-    const { searchParams } = new URL(req.url);
-
-    const page = searchParams.get("page") || "1";
-    const limit = searchParams.get("limit") || "10";
-
     try {
-        const response = await getGalleryResponse(Number(page), Number(limit));
+        const response = await getGalleryResponse();
         return NextResponse.json(response);
     } catch (error) {
         const [errorResponse, status] = getPrismaErrorResponse(error);

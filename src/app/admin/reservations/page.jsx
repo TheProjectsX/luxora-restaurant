@@ -6,6 +6,9 @@ import React, { useEffect, useState } from "react";
 import Heading from "@/components/Heading";
 import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import EmptyLabel from "@/components/EmptyLabel";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+
 const Reservations = () => {
     const [reservationsData, setReservationsData] = useState(null);
 
@@ -18,6 +21,74 @@ const Reservations = () => {
 
         fetchReservations();
     }, []);
+
+    const handleConfirmReservation = async (reservation) => {
+        const { isConfirmed } = await Swal.fire({
+            title: "Confirm Reservation?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, confirm it!",
+        });
+
+        if (!isConfirmed) return;
+
+        const response = await fetch(
+            `/api/admin/reservations/${reservation.id}/confirm`,
+            {
+                method: "PUT",
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+            toast.success(data.message);
+            setReservationsData((prev) =>
+                prev.map((item) =>
+                    item.id === reservation.id
+                        ? { ...item, status: "confirmed" }
+                        : item
+                )
+            );
+        } else {
+            toast.error(data.error ?? "Failed to change reservation status");
+        }
+    };
+
+    // Delete Reservation
+    const handleDeleteReservation = async (reservation) => {
+        const { isConfirmed } = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        });
+
+        if (!isConfirmed) return;
+
+        const response = await fetch(
+            `/api/admin/reservations/${reservation.id}`,
+            {
+                method: "DELETE",
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+            toast.success(data.message);
+            setReservationsData((prev) =>
+                prev.filter((item) => item.id !== reservation.id)
+            );
+        } else {
+            toast.error(data.error ?? "Failed to delete reservation");
+        }
+    };
 
     return (
         <div>
@@ -53,7 +124,7 @@ const Reservations = () => {
                                     key={idx}
                                     className="odd:bg-white even:bg-gray-50 border-b border-gray-200"
                                 >
-                                    <td className="px-6 py-4">
+                                    <td className="px-6 py-4 whitespace-nowrap">
                                         {reservation.name}
                                     </td>
                                     <td className="px-6 py-4">
@@ -89,33 +160,33 @@ const Reservations = () => {
                                             </div>
                                         )}
                                     </td>
-                                    <td className="px-6 py-4 space-y-1">
+                                    <td className="px-6 py-4 flex flex-col gap-1 items-center">
                                         <button
                                             className={`${
                                                 reservation.status ===
                                                 "confirmed"
-                                                    ? "text-red-600"
-                                                    : "text-green-600"
-                                            } hover:underline whitespace-nowrap`}
+                                                    ? "text-gray-600"
+                                                    : "text-blue-600"
+                                            } hover:underline whitespace-nowrap cursor-pointer disabled:cursor-not-allowed disabled:hover:no-underline`}
                                             onClick={() =>
-                                                handleChangeReservationStatus(
-                                                    reservation.id,
-                                                    reservation.status ===
-                                                        "confirmed"
-                                                        ? "pending"
-                                                        : "confirmed"
+                                                handleConfirmReservation(
+                                                    reservation
                                                 )
+                                            }
+                                            disabled={
+                                                reservation.status ===
+                                                "confirmed"
                                             }
                                         >
                                             {reservation.status === "confirmed"
-                                                ? "Cancel Reservation"
+                                                ? "Reservation Confirmed"
                                                 : "Confirm Reservation"}
                                         </button>
                                         <button
-                                            className="text-blue-600 hover:underline whitespace-nowrap ml-2"
+                                            className="text-red-600 hover:underline whitespace-nowrap cursor-pointer disabled:cursor-not-allowed disabled:hover:no-underline"
                                             onClick={() =>
                                                 handleDeleteReservation(
-                                                    reservation.id
+                                                    reservation
                                                 )
                                             }
                                         >
