@@ -23,7 +23,7 @@ const Layout = async ({ children }) => {
     }
 
     return (
-        <div className="relative grid overflow-visible grid-cols-[1fr_320px] w-full max-width mx-auto px-3 py-3 max-[770px]:grid-cols-1 gap-10 ">
+        <div className="grid overflow-visible grid-cols-[1fr_320px] w-full max-width mx-auto px-3 py-3 max-[770px]:grid-cols-1 gap-10 ">
             <div className="sm:px-2 overflow-x-hidden">{children}</div>
             <aside
                 className={`sticky top-[65px] max-h-[calc(100vh-65px)] overflow-y-auto scrollbar-track-transparent scrollbar-thumb-transparent scrollbar-thin hover:scrollbar-thumb-neutral-500/50 shrink-0`}
